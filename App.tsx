@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo } from 'react';
 import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
@@ -13,6 +14,10 @@ const INITIAL_FILTERS: FilterState = {
   atmosphere: [],
   accommodations: [],
   marineActivities: [],
+  bikiniBeach: [],
+  watersports: [],
+  jungle: [],
+  nightlife: [],
   hasFloatingBar: null,
   hasSandbankAttached: null,
 };
@@ -44,8 +49,13 @@ function App() {
     return source.filter(island => {
       if (!matchesFilterGroup(island.atoll, currentFilters.atoll)) return false;
       if (!matchesFilterGroup(island.transferTypes, currentFilters.transferTypes)) return false;
+      if (!matchesFilterGroup(island.ferryAccess, currentFilters.ferryAccess)) return false; // Added Ferry Access check
       if (!matchesFilterGroup(island.size, currentFilters.size)) return false;
       if (!matchesFilterGroup(island.atmosphere, currentFilters.atmosphere)) return false;
+      if (!matchesFilterGroup(island.bikiniBeach, currentFilters.bikiniBeach)) return false;
+      if (!matchesFilterGroup(island.watersports, currentFilters.watersports)) return false;
+      if (!matchesFilterGroup(island.jungle, currentFilters.jungle)) return false;
+      if (!matchesFilterGroup(island.nightlife, currentFilters.nightlife)) return false;
       
       // Marine Activities is tricky: Do we want islands that have ANY selected activity or ALL?
       // Usually Faceted Search is OR within a category. "I want to see islands with Sharks OR Turtles".
@@ -95,8 +105,13 @@ function App() {
     counts['atmosphere'] = getCountsForCategory('atmosphere', i => i.atmosphere);
     counts['size'] = getCountsForCategory('size', i => i.size);
     counts['transferTypes'] = getCountsForCategory('transferTypes', i => i.transferTypes);
+    counts['ferryAccess'] = getCountsForCategory('ferryAccess', i => i.ferryAccess); // Added ferryAccess counts
     counts['marineActivities'] = getCountsForCategory('marineActivities', i => i.marineActivities);
     counts['accommodations'] = getCountsForCategory('accommodations', i => i.accommodations);
+    counts['bikiniBeach'] = getCountsForCategory('bikiniBeach', i => i.bikiniBeach);
+    counts['watersports'] = getCountsForCategory('watersports', i => i.watersports);
+    counts['jungle'] = getCountsForCategory('jungle', i => i.jungle);
+    counts['nightlife'] = getCountsForCategory('nightlife', i => i.nightlife);
 
     // Booleans: Calculate availability based on current filter set excluding the specific boolean itself
     const baseForFeatures = filterIslands(ISLANDS, { 

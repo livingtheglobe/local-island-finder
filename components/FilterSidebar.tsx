@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation, BikiniBeach, Watersports, JungleVegetation, Nightlife } from '../types';
-import { Check } from 'lucide-react';
+import { Check, BookOpen } from 'lucide-react';
 
 interface FilterSidebarProps {
   filters: FilterState;
@@ -114,21 +114,27 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
   const showFloatingBar = (availableCounts['features']?.['FloatingBar'] || 0) > 0 || filters.hasFloatingBar;
   const showFeaturesSection = showSandbank || showFloatingBar;
 
-  // New Requested Order:
-  // 1. Atoll
-  // 2. Transfer Type (Merged)
-  // 3. Island Size
-  // 4. Accommodation
-  // 5. Bikini Beach Size
-  // 6. Atmosphere
-  // 7. Greenery / Jungle
-  // 8. Nightlife
-  // 9. Marine Activities
-  // 10. Watersports
-  // 11. Features
-
   return (
     <div className="w-full">
+      {/* Travel Guide Promo Section */}
+      <div className="mb-6 bg-gradient-to-br from-teal-50 to-white rounded-xl border border-teal-100 p-5 shadow-sm">
+        <h3 className="font-serif font-bold text-lg text-teal-900 mb-2 leading-tight">
+          Complete Maldives Budget Travel Guide
+        </h3>
+        <p className="text-sm text-teal-700/80 mb-4 leading-relaxed font-medium">
+          Plan your perfect trip to any local island with our comprehensive guide.
+        </p>
+        <a 
+          href="https://maldivesonabudget.net/products/maldives-budget-travel-guide" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-full bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:shadow group"
+        >
+          <BookOpen size={16} className="mr-2 group-hover:scale-105 transition-transform" />
+          GET THE GUIDE
+        </a>
+      </div>
+
       <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
         <h2 className="font-serif font-bold text-xl text-gray-900">Filters</h2>
         <button 

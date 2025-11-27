@@ -1,3 +1,4 @@
+
 export enum Atoll {
   SouthMale = 'South Malé (South Kaafu)',
   NorthMale = 'North Malé (North Kaafu)',
@@ -17,7 +18,7 @@ export enum TransferType {
 
 export enum FerryAccess {
   Direct = 'Direct Public Ferry',
-  Transfer = 'Transfer Required',
+  Transfer = '2 Public Ferries (Must Transfer)',
   None = 'No Public Ferry',
 }
 
@@ -107,6 +108,10 @@ export type FilterState = {
   atmosphere: Atmosphere[];
   accommodations: Accommodation[];
   marineActivities: MarineActivity[];
+  bikiniBeach: BikiniBeach[];
+  watersports: Watersports[];
+  jungle: JungleVegetation[];
+  nightlife: Nightlife[];
   hasFloatingBar: boolean | null;
   hasSandbankAttached: boolean | null;
 };

@@ -1,5 +1,6 @@
+
 import React from 'react';
-import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation } from '../types';
+import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation, BikiniBeach, Watersports, JungleVegetation, Nightlife } from '../types';
 import { Check } from 'lucide-react';
 
 interface FilterSidebarProps {
@@ -93,10 +94,38 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
     );
   };
 
+  // Logic for merged Transfer Type section (Speedboat + Public Ferry)
+  const transferAndFerryOptions = [...Object.values(TransferType), ...Object.values(FerryAccess)];
+  const transferAndFerrySelected = [...filters.transferTypes, ...filters.ferryAccess];
+  const transferAndFerryCounts = {
+      ...(availableCounts['transferTypes'] || {}),
+      ...(availableCounts['ferryAccess'] || {})
+  };
+  const handleTransferAndFerryChange = (val: string) => {
+    if (Object.values(TransferType).includes(val as TransferType)) {
+      handleMultiSelect('transferTypes', val);
+    } else if (Object.values(FerryAccess).includes(val as FerryAccess)) {
+      handleMultiSelect('ferryAccess', val);
+    }
+  };
+
   // Check visibility for features header
   const showSandbank = (availableCounts['features']?.['Sandbank'] || 0) > 0 || filters.hasSandbankAttached;
   const showFloatingBar = (availableCounts['features']?.['FloatingBar'] || 0) > 0 || filters.hasFloatingBar;
   const showFeaturesSection = showSandbank || showFloatingBar;
+
+  // New Requested Order:
+  // 1. Atoll
+  // 2. Transfer Type (Merged)
+  // 3. Island Size
+  // 4. Accommodation
+  // 5. Bikini Beach Size
+  // 6. Atmosphere
+  // 7. Greenery / Jungle
+  // 8. Nightlife
+  // 9. Marine Activities
+  // 10. Watersports
+  // 11. Features
 
   return (
     <div className="w-full">
@@ -111,14 +140,43 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
       </div>
 
       <div className="pr-1">
-        <FilterSection title="Transfer Type" options={Object.values(TransferType)} selected={filters.transferTypes} counts={availableCounts['transferTypes'] || {}} onChange={(val) => handleMultiSelect('transferTypes', val)} />
-        <FilterSection title="Atmosphere" options={Object.values(Atmosphere)} selected={filters.atmosphere} counts={availableCounts['atmosphere'] || {}} onChange={(val) => handleMultiSelect('atmosphere', val)} />
-        <FilterSection title="Island Size" options={Object.values(IslandSize)} selected={filters.size} counts={availableCounts['size'] || {}} onChange={(val) => handleMultiSelect('size', val)} />
+        {/* 1. Atoll */}
         <FilterSection title="Atoll" options={Object.values(Atoll)} selected={filters.atoll} counts={availableCounts['atoll'] || {}} onChange={(val) => handleMultiSelect('atoll', val)} />
-        <FilterSection title="Accommodation" options={Object.values(Accommodation)} selected={filters.accommodations} counts={availableCounts['accommodations'] || {}} onChange={(val) => handleMultiSelect('accommodations', val)} />
-        <FilterSection title="Marine Activities" options={Object.values(MarineActivity)} selected={filters.marineActivities} counts={availableCounts['marineActivities'] || {}} onChange={(val) => handleMultiSelect('marineActivities', val)} />
+        
+        {/* 2. Transfer Type (Merged) */}
+        <FilterSection 
+          title="Transfer Type" 
+          options={transferAndFerryOptions} 
+          selected={transferAndFerrySelected} 
+          counts={transferAndFerryCounts} 
+          onChange={handleTransferAndFerryChange} 
+        />
 
-        {/* Boolean filters - Features */}
+        {/* 3. Island Size */}
+        <FilterSection title="Island Size" options={Object.values(IslandSize)} selected={filters.size} counts={availableCounts['size'] || {}} onChange={(val) => handleMultiSelect('size', val)} />
+        
+        {/* 4. Accommodation */}
+        <FilterSection title="Accommodation" options={Object.values(Accommodation)} selected={filters.accommodations} counts={availableCounts['accommodations'] || {}} onChange={(val) => handleMultiSelect('accommodations', val)} />
+        
+        {/* 5. Bikini Beach Size */}
+        <FilterSection title="Bikini Beach Size" options={Object.values(BikiniBeach)} selected={filters.bikiniBeach} counts={availableCounts['bikiniBeach'] || {}} onChange={(val) => handleMultiSelect('bikiniBeach', val)} />
+        
+        {/* 6. Atmosphere */}
+        <FilterSection title="Atmosphere" options={Object.values(Atmosphere)} selected={filters.atmosphere} counts={availableCounts['atmosphere'] || {}} onChange={(val) => handleMultiSelect('atmosphere', val)} />
+        
+        {/* 7. Greenery / Jungle */}
+        <FilterSection title="Greenery / Jungle" options={Object.values(JungleVegetation)} selected={filters.jungle} counts={availableCounts['jungle'] || {}} onChange={(val) => handleMultiSelect('jungle', val)} />
+        
+        {/* 8. Nightlife */}
+        <FilterSection title="Nightlife" options={Object.values(Nightlife)} selected={filters.nightlife} counts={availableCounts['nightlife'] || {}} onChange={(val) => handleMultiSelect('nightlife', val)} />
+        
+        {/* 9. Marine Activities */}
+        <FilterSection title="Marine Activities" options={Object.values(MarineActivity)} selected={filters.marineActivities} counts={availableCounts['marineActivities'] || {}} onChange={(val) => handleMultiSelect('marineActivities', val)} />
+        
+        {/* 10. Watersports */}
+        <FilterSection title="Watersports" options={Object.values(Watersports)} selected={filters.watersports} counts={availableCounts['watersports'] || {}} onChange={(val) => handleMultiSelect('watersports', val)} />
+
+        {/* 11. Features (Booleans) */}
         {showFeaturesSection && (
           <div className="mb-8 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
              <h3 className="text-sm font-bold text-teal-800 uppercase tracking-wider mb-3">Features</h3>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Island, TransferType, FerryAccess, MarineActivity, Atoll } from '../types';
-import { Youtube, BookOpen, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
+import { Island, Atoll } from '../types';
+import { Youtube, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 
 interface IslandCardProps {
   island: Island;
@@ -10,29 +10,46 @@ const AtollBadge: React.FC<{ atoll: Atoll }> = ({ atoll }) => {
   // Extract simple name (everything before parenthesis)
   const simpleName = atoll.split('(')[0].trim().toUpperCase();
   return (
-    <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full z-10 shadow-sm border border-gray-100">
+    <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-full z-10 shadow-sm border border-gray-100">
       <span className="text-[10px] font-bold tracking-wider text-teal-800 uppercase">{simpleName}</span>
     </div>
   );
 };
 
+const CompactStat: React.FC<{ label: string; value: string }> = ({ label, value }) => (
+  <div>
+    <span className="block text-[9px] uppercase tracking-wider text-gray-400 font-bold">{label}</span>
+    <span className="block text-xs font-bold text-gray-700 truncate" title={value}>{value}</span>
+  </div>
+);
+
 export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Collect tags
-  const tags = [
+  // Collect features and accommodations for tags
+  const featureTags = [
+    ...(island.hasSandbankAttached ? ['Sandbank'] : []),
+    ...(island.hasFloatingBar ? ['Floating Bar'] : []),
+    ...island.accommodations,
+  ];
+
+  // Combine tags
+  const allTags = [
+    ...featureTags,
     ...island.transferTypes,
     island.ferryAccess,
     ...island.marineActivities
-  ].slice(0, 6); // Limit initial visible tags
+  ].filter(Boolean);
+
+  const visibleTags = allTags;
 
   // Truncate description logic
-  const shortDesc = island.description.slice(0, 150) + '...';
+  const shortDesc = island.description.slice(0, 120) + '...';
 
   return (
-    <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col h-full">
-      {/* Image Container */}
-      <div className="relative h-56 w-full bg-gray-200 shrink-0">
+    <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col h-full">
+      {/* Image Container - Reduced Height */}
+      <div className="relative h-48 w-full bg-gray-200 shrink-0">
         <img 
           src={island.imageUrl} 
           alt={island.name} 
@@ -43,8 +60,10 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
       </div>
 
       {/* Content */}
-      <div className="p-6 flex flex-col flex-grow">
-        <h2 className="text-2xl font-serif font-bold text-gray-900 mb-3">{island.name}</h2>
+      <div className="p-5 flex flex-col flex-grow">
+        <div className="flex justify-between items-start mb-2">
+          <h2 className="text-xl font-serif font-bold text-gray-900 leading-tight">{island.name}</h2>
+        </div>
         
         <div className="text-gray-600 text-sm leading-relaxed mb-3 flex-grow">
           {isExpanded ? island.description : shortDesc}
@@ -52,35 +71,35 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
         
         <button 
           onClick={() => setIsExpanded(!isExpanded)}
-          className="text-gray-400 text-xs font-bold tracking-wide uppercase flex items-center mb-6 hover:text-teal-600 transition-colors w-fit"
+          className="text-gray-400 text-xs font-bold tracking-wide uppercase flex items-center mb-4 hover:text-teal-600 transition-colors w-fit"
         >
           {isExpanded ? 'Read Less' : 'Read More'}
           {isExpanded ? <ChevronUp size={14} className="ml-1"/> : <ChevronDown size={14} className="ml-1"/>}
         </button>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-6">
-          {tags.map((tag, idx) => (
-            <span key={idx} className="bg-cyan-50 text-cyan-900 text-[11px] font-medium px-2.5 py-1 rounded border border-cyan-100">
+        {/* Tags - Compact */}
+        <div className="flex flex-wrap gap-1.5 mb-5">
+          {visibleTags.map((tag, idx) => (
+            <span key={idx} className="bg-cyan-50 text-cyan-900 text-[10px] font-medium px-2 py-0.5 rounded border border-cyan-100 leading-tight">
               {tag}
             </span>
           ))}
         </div>
 
-        {/* Action Buttons */}
-        <div className="space-y-3 mt-auto">
+        {/* Action Buttons - Compact */}
+        <div className="space-y-2 mt-auto">
           {island.travelGuideUrl ? (
             <a 
               href={island.travelGuideUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-full bg-[#0d9488] hover:bg-[#0f766e] text-white py-2.5 rounded-lg text-sm font-bold tracking-wide transition-colors"
+              className="flex items-center justify-center w-full bg-[#0d9488] hover:bg-[#0f766e] text-white py-2 rounded-md text-xs font-bold tracking-wide transition-colors"
             >
-              <BookOpen size={16} className="mr-2" />
+              <BookOpen size={14} className="mr-2" />
               GET TRAVEL GUIDE
             </a>
           ) : (
-            <div className="h-[42px]"></div> // Spacer to keep alignment if needed, though prompt says leave empty.
+            <div className="h-[34px]"></div>
           )}
           
           {island.videoUrl ? (
@@ -88,26 +107,27 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
               href={island.videoUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-full bg-white hover:bg-gray-50 text-gray-700 py-2.5 rounded-lg border border-gray-200 text-sm font-bold tracking-wide transition-colors shadow-sm"
+              className="flex items-center justify-center w-full bg-white hover:bg-gray-50 text-gray-700 py-2 rounded-md border border-gray-200 text-xs font-bold tracking-wide transition-colors shadow-sm"
             >
-              <Youtube size={18} className="mr-2 text-red-600" />
+              <Youtube size={16} className="mr-2 text-red-600" />
               WATCH WALKING TOUR
             </a>
           ) : (
-             <div className="h-[42px]"></div>
+             <div className="h-[34px]"></div>
           )}
         </div>
       </div>
 
-      {/* Footer Metadata */}
-      <div className="px-6 py-4 bg-gray-50/50 border-t border-gray-100 mt-auto">
-        <div className="flex justify-between items-center text-sm mb-1">
-          <span className="text-gray-500">Atmosphere:</span>
-          <span className="font-semibold text-gray-900">{island.atmosphere.join(', ')}</span>
-        </div>
-        <div className="flex justify-between items-center text-sm">
-          <span className="text-gray-500">Size:</span>
-          <span className="font-semibold text-gray-900">{island.size}</span>
+      {/* Detailed Features Grid - Compact 3-col */}
+      <div className="px-5 py-3 bg-gray-50/80 border-t border-gray-100 mt-auto">
+        <div className="grid grid-cols-3 gap-y-2 gap-x-2">
+          <CompactStat label="Atmosphere" value={island.atmosphere.join(', ')} />
+          <CompactStat label="Size" value={island.size} />
+          <CompactStat label="Beach" value={island.bikiniBeach} />
+          
+          <CompactStat label="Nightlife" value={island.nightlife} />
+          <CompactStat label="Greenery" value={island.jungle} />
+          <CompactStat label="Sports" value={island.watersports} />
         </div>
       </div>
     </div>

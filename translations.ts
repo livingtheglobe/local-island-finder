@@ -1,4 +1,3 @@
-
 import { Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, BikiniBeach, Watersports, MarineActivity, JungleVegetation, Nightlife } from './types';
 
 export type Language = 'en' | 'de';
@@ -12,10 +11,11 @@ export const UI_TEXT = {
     readMore: "Read More",
     readLess: "Read Less",
     getGuide: "GET TRAVEL GUIDE",
+    getSpecificGuide: "Get {island} Guide",
     watchTour: "WATCH WALKING TOUR",
     promoTitle: "Complete Maldives Budget Travel Guide",
     promoDesc: "Plan your perfect trip to any local island with our comprehensive guide.",
-    promoButton: "GET THE GUIDE",
+    promoButton: "Learn More",
     exploreTitle: "Maldives Local Island Finder",
     showingResults: "Found {count} islands based on your preferences",
     chooseFrom: "Choose from {count} local islands",
@@ -62,10 +62,11 @@ export const UI_TEXT = {
     readMore: "Mehr lesen",
     readLess: "Weniger lesen",
     getGuide: "REISEFÜHRER HOLEN",
+    getSpecificGuide: "{island} Guide holen",
     watchTour: "RUNDGANG ANSEHEN",
     promoTitle: "Kompletter Malediven Budget-Reiseführer",
     promoDesc: "Planen Sie Ihre perfekte Reise zu jeder lokalen Insel mit unserem umfassenden Guide.",
-    promoButton: "ZUM GUIDE",
+    promoButton: "Mehr erfahren",
     exploreTitle: "Malediven Insel-Finder",
     showingResults: "{count} Inseln basierend auf Ihren Vorlieben gefunden",
     chooseFrom: "Wählen Sie aus {count} Einheimischen-Inseln",

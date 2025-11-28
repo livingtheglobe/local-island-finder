@@ -1,10 +1,9 @@
-
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
 import { IslandCard } from './components/IslandCard';
 import { FilterSidebar } from './components/FilterSidebar';
-import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe } from 'lucide-react';
+import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe, Moon, Sun } from 'lucide-react';
 import { Language, UI_TEXT } from './translations';
 
 const INITIAL_FILTERS: FilterState = {
@@ -27,6 +26,23 @@ function App() {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [lang, setLang] = useState<Language>('en');
+  
+  // Dark mode state
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    }
+    return false;
+  });
+
+  // Apply dark mode class to html element
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const text = UI_TEXT[lang];
 
@@ -40,10 +56,11 @@ function App() {
     setLang(prev => prev === 'en' ? 'de' : 'en');
   };
 
+  const toggleDarkMode = () => {
+    setIsDarkMode(prev => !prev);
+  };
+
   // --- Filtering Logic ---
-  
-  // Helper: Checks if an island matches a specific filter group
-  // Returns true if no filter is selected for that group, OR if the island matches one of the selected options.
   const matchesFilterGroup = (islandValues: any | any[], selectedValues: any[]) => {
     if (selectedValues.length === 0) return true;
     if (Array.isArray(islandValues)) {
@@ -52,26 +69,19 @@ function App() {
     return selectedValues.includes(islandValues);
   };
 
-  // Main Filter Function
   const filterIslands = (source: Island[], currentFilters: FilterState) => {
     return source.filter(island => {
       if (!matchesFilterGroup(island.atoll, currentFilters.atoll)) return false;
       if (!matchesFilterGroup(island.transferTypes, currentFilters.transferTypes)) return false;
-      if (!matchesFilterGroup(island.ferryAccess, currentFilters.ferryAccess)) return false; // Added Ferry Access check
+      if (!matchesFilterGroup(island.ferryAccess, currentFilters.ferryAccess)) return false;
       if (!matchesFilterGroup(island.size, currentFilters.size)) return false;
       if (!matchesFilterGroup(island.atmosphere, currentFilters.atmosphere)) return false;
       if (!matchesFilterGroup(island.bikiniBeach, currentFilters.bikiniBeach)) return false;
       if (!matchesFilterGroup(island.watersports, currentFilters.watersports)) return false;
       if (!matchesFilterGroup(island.jungle, currentFilters.jungle)) return false;
       if (!matchesFilterGroup(island.nightlife, currentFilters.nightlife)) return false;
-      
-      // Marine Activities is tricky: Do we want islands that have ANY selected activity or ALL?
-      // Usually Faceted Search is OR within a category. "I want to see islands with Sharks OR Turtles".
       if (!matchesFilterGroup(island.marineActivities, currentFilters.marineActivities)) return false;
-      
       if (!matchesFilterGroup(island.accommodations, currentFilters.accommodations)) return false;
-
-      // Booleans
       if (currentFilters.hasSandbankAttached && !island.hasSandbankAttached) return false;
       if (currentFilters.hasFloatingBar && !island.hasFloatingBar) return false;
 
@@ -85,18 +95,13 @@ function App() {
 
 
   // --- Faceted Counts Logic ---
-  // We need to calculate how many islands match each option *if* we were to select it,
-  // considering all OTHER currently active filters.
   const availableCounts = useMemo(() => {
     const counts: Record<string, Record<string, number>> = {};
 
     const getCountsForCategory = (key: keyof FilterState, extractValue: (i: Island) => string | string[]) => {
-      // 1. Filters excluding this key
       const tempFilters = { ...filters, [key]: Array.isArray(filters[key]) ? [] : null };
-      // 2. Filter data
       const potentialIslands = filterIslands(ISLANDS, tempFilters);
       
-      // 3. Count
       const catCounts: Record<string, number> = {};
       potentialIslands.forEach(island => {
         const val = extractValue(island);
@@ -113,7 +118,7 @@ function App() {
     counts['atmosphere'] = getCountsForCategory('atmosphere', i => i.atmosphere);
     counts['size'] = getCountsForCategory('size', i => i.size);
     counts['transferTypes'] = getCountsForCategory('transferTypes', i => i.transferTypes);
-    counts['ferryAccess'] = getCountsForCategory('ferryAccess', i => i.ferryAccess); // Added ferryAccess counts
+    counts['ferryAccess'] = getCountsForCategory('ferryAccess', i => i.ferryAccess);
     counts['marineActivities'] = getCountsForCategory('marineActivities', i => i.marineActivities);
     counts['accommodations'] = getCountsForCategory('accommodations', i => i.accommodations);
     counts['bikiniBeach'] = getCountsForCategory('bikiniBeach', i => i.bikiniBeach);
@@ -121,7 +126,6 @@ function App() {
     counts['jungle'] = getCountsForCategory('jungle', i => i.jungle);
     counts['nightlife'] = getCountsForCategory('nightlife', i => i.nightlife);
 
-    // Booleans: Calculate availability based on current filter set excluding the specific boolean itself
     const baseForFeatures = filterIslands(ISLANDS, { 
       ...filters, 
       hasSandbankAttached: null, 
@@ -143,35 +147,46 @@ function App() {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 font-sans">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto px-4 py-8">
         
-        {/* Header Section with Title and Language Toggle */}
+        {/* Header Section */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
           <div>
-            <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-2">{text.exploreTitle}</h1>
-            <p className="text-gray-500 text-sm md:text-base">
+            <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-2 transition-colors">
+              {text.exploreTitle}
+            </h1>
+            <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base transition-colors">
               {text.showingResults.replace('{count}', filteredIslands.length.toString())}
             </p>
           </div>
           
-          <button 
-            onClick={toggleLanguage}
-            className="flex items-center gap-2 px-4 py-2 bg-white rounded-lg border border-gray-200 shadow-sm hover:border-teal-200 transition-colors text-sm font-medium text-gray-700"
-          >
-            <Globe size={18} className="text-teal-600" />
-            <span>{lang === 'en' ? 'Deutsch' : 'English'}</span>
-          </button>
+          <div className="flex gap-3">
+            <button 
+              onClick={toggleDarkMode}
+              className="p-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:border-teal-200 dark:hover:border-teal-700 transition-colors text-gray-700 dark:text-gray-300"
+              aria-label="Toggle Dark Mode"
+            >
+              {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
+            </button>
+            <button 
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm hover:border-teal-200 dark:hover:border-teal-700 transition-colors text-sm font-medium text-gray-700 dark:text-gray-300"
+            >
+              <Globe size={18} className="text-teal-600 dark:text-teal-400" />
+              <span>{lang === 'en' ? 'Deutsch' : 'English'}</span>
+            </button>
+          </div>
         </div>
 
         {/* Mobile/Tablet Filter Toggle - Collapsible */}
         <div className="lg:hidden mb-6 sticky top-4 z-20">
           <button 
             onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-            className={`w-full bg-white border border-gray-200 rounded-xl px-5 py-4 flex items-center justify-between shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}
+            className={`w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-5 py-4 flex items-center justify-between shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}
           >
-            <div className="flex items-center gap-2 text-gray-900 font-bold font-serif text-lg">
-              <Filter size={20} className="text-teal-600" />
+            <div className="flex items-center gap-2 text-gray-900 dark:text-white font-bold font-serif text-lg">
+              <Filter size={20} className="text-teal-600 dark:text-teal-400" />
               <span>{text.filters}</span>
               {activeFiltersCount > 0 && (
                 <span className="bg-teal-600 text-white text-xs font-sans px-2 py-0.5 rounded-full ml-1">
@@ -184,7 +199,7 @@ function App() {
 
           {/* Collapsible Content */}
           <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileFiltersOpen ? 'max-h-[1000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
                <div className="flex justify-between items-center mb-4 lg:hidden">
                  <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{text.selectFilters}</span>
                  <button onClick={() => setIsMobileFiltersOpen(false)} className="text-gray-400 hover:text-gray-600">
@@ -206,7 +221,7 @@ function App() {
           
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-1/4 flex-shrink-0">
-             <div className="sticky top-8 bg-white p-6 rounded-xl border border-gray-200 shadow-sm max-h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar">
+             <div className="sticky top-8 bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm max-h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar transition-colors">
                <FilterSidebar 
                  filters={filters} 
                  onFilterChange={updateFilter} 
@@ -226,10 +241,10 @@ function App() {
                 ))}
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-20 bg-white rounded-xl border border-dashed border-gray-300">
-                <MapPin size={48} className="text-gray-300 mb-4" />
-                <h3 className="text-xl font-serif font-bold text-gray-900 mb-2">{text.noResultsTitle}</h3>
-                <p className="text-gray-500 mb-6 text-center max-w-md">{text.noResultsDesc}</p>
+              <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 transition-colors">
+                <MapPin size={48} className="text-gray-300 dark:text-gray-600 mb-4" />
+                <h3 className="text-xl font-serif font-bold text-gray-900 dark:text-white mb-2">{text.noResultsTitle}</h3>
+                <p className="text-gray-500 dark:text-gray-400 mb-6 text-center max-w-md">{text.noResultsDesc}</p>
                 <button 
                   onClick={resetFilters}
                   className="bg-teal-600 text-white px-6 py-2.5 rounded-lg font-bold hover:bg-teal-700 transition-colors"

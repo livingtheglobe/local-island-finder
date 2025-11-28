@@ -2,12 +2,14 @@
 import React from 'react';
 import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation, BikiniBeach, Watersports, JungleVegetation, Nightlife } from '../types';
 import { Check, BookOpen } from 'lucide-react';
+import { translate, Language, UI_TEXT } from '../translations';
 
 interface FilterSidebarProps {
   filters: FilterState;
   onFilterChange: (key: keyof FilterState, value: any) => void;
   availableCounts: Record<string, Record<string, number>>;
   onReset: () => void;
+  lang: Language;
 }
 
 const FilterSection: React.FC<{
@@ -16,7 +18,8 @@ const FilterSection: React.FC<{
   selected: string[];
   counts: Record<string, number>;
   onChange: (option: string) => void;
-}> = ({ title, options, selected, counts, onChange }) => {
+  lang: Language;
+}> = ({ title, options, selected, counts, onChange, lang }) => {
   // Only render if there are options with non-zero matches or if they are already selected
   const visibleOptions = options.filter(opt => (counts[opt] || 0) > 0 || selected.includes(opt));
   
@@ -25,7 +28,6 @@ const FilterSection: React.FC<{
   return (
     <div className="mb-6 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
       <h3 className="text-sm font-bold text-teal-800 uppercase tracking-wider mb-3">{title}</h3>
-      {/* Tightened vertical spacing (space-y-1.5) */}
       <div className="space-y-1.5">
         {visibleOptions.map((option) => {
           const isSelected = selected.includes(option);
@@ -47,9 +49,8 @@ const FilterSection: React.FC<{
                   {isSelected && <Check size={14} className="text-white" strokeWidth={3} />}
                 </div>
               </div>
-              {/* Increased font size to text-base (16px) */}
               <span className="ml-3 text-base text-gray-700 font-medium group-hover:text-teal-900 transition-colors leading-tight">
-                {option}
+                {translate(option, lang)}
               </span>
             </label>
           );
@@ -59,7 +60,7 @@ const FilterSection: React.FC<{
   );
 };
 
-export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange, availableCounts, onReset }) => {
+export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange, availableCounts, onReset, lang }) => {
   
   const handleMultiSelect = (key: keyof FilterState, value: string) => {
     const current = filters[key] as string[];
@@ -113,16 +114,18 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
   const showSandbank = (availableCounts['features']?.['Sandbank'] || 0) > 0 || filters.hasSandbankAttached;
   const showFloatingBar = (availableCounts['features']?.['FloatingBar'] || 0) > 0 || filters.hasFloatingBar;
   const showFeaturesSection = showSandbank || showFloatingBar;
+  
+  const text = UI_TEXT[lang];
 
   return (
     <div className="w-full">
       {/* Travel Guide Promo Section */}
       <div className="mb-6 bg-gradient-to-br from-teal-50 to-white rounded-xl border border-teal-100 p-5 shadow-sm">
         <h3 className="font-serif font-bold text-lg text-teal-900 mb-2 leading-tight">
-          Complete Maldives Budget Travel Guide
+          {text.promoTitle}
         </h3>
         <p className="text-sm text-teal-700/80 mb-4 leading-relaxed font-medium">
-          Plan your perfect trip to any local island with our comprehensive guide.
+          {text.promoDesc}
         </p>
         <a 
           href="https://maldivesonabudget.net/products/maldives-budget-travel-guide" 
@@ -131,27 +134,28 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
           className="flex items-center justify-center w-full bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:shadow group"
         >
           <BookOpen size={16} className="mr-2 group-hover:scale-105 transition-transform" />
-          GET THE GUIDE
+          {text.promoButton}
         </a>
       </div>
 
       <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
-        <h2 className="font-serif font-bold text-xl text-gray-900">Filters</h2>
+        <h2 className="font-serif font-bold text-xl text-gray-900">{text.filters}</h2>
         <button 
           onClick={onReset}
           className="text-xs font-bold text-teal-600 hover:text-teal-700 uppercase tracking-wider px-3 py-1.5 rounded-full hover:bg-teal-50 transition-colors border border-transparent hover:border-teal-100"
         >
-          Reset All
+          {text.reset}
         </button>
       </div>
 
       <div className="pr-1">
         {/* 1. Atoll */}
-        <FilterSection title="Atoll" options={Object.values(Atoll)} selected={filters.atoll} counts={availableCounts['atoll'] || {}} onChange={(val) => handleMultiSelect('atoll', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.atoll} options={Object.values(Atoll)} selected={filters.atoll} counts={availableCounts['atoll'] || {}} onChange={(val) => handleMultiSelect('atoll', val)} />
         
         {/* 2. Transfer Type (Merged) */}
         <FilterSection 
-          title="Transfer Type" 
+          lang={lang}
+          title={text.filterHeaders.transferType}
           options={transferAndFerryOptions} 
           selected={transferAndFerrySelected} 
           counts={transferAndFerryCounts} 
@@ -159,36 +163,36 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
         />
 
         {/* 3. Island Size */}
-        <FilterSection title="Island Size" options={Object.values(IslandSize)} selected={filters.size} counts={availableCounts['size'] || {}} onChange={(val) => handleMultiSelect('size', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.islandSize} options={Object.values(IslandSize)} selected={filters.size} counts={availableCounts['size'] || {}} onChange={(val) => handleMultiSelect('size', val)} />
         
         {/* 4. Accommodation */}
-        <FilterSection title="Accommodation" options={Object.values(Accommodation)} selected={filters.accommodations} counts={availableCounts['accommodations'] || {}} onChange={(val) => handleMultiSelect('accommodations', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.accommodation} options={Object.values(Accommodation)} selected={filters.accommodations} counts={availableCounts['accommodations'] || {}} onChange={(val) => handleMultiSelect('accommodations', val)} />
         
         {/* 5. Bikini Beach Size */}
-        <FilterSection title="Bikini Beach Size" options={Object.values(BikiniBeach)} selected={filters.bikiniBeach} counts={availableCounts['bikiniBeach'] || {}} onChange={(val) => handleMultiSelect('bikiniBeach', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.bikiniBeachSize} options={Object.values(BikiniBeach)} selected={filters.bikiniBeach} counts={availableCounts['bikiniBeach'] || {}} onChange={(val) => handleMultiSelect('bikiniBeach', val)} />
         
         {/* 6. Atmosphere */}
-        <FilterSection title="Atmosphere" options={Object.values(Atmosphere)} selected={filters.atmosphere} counts={availableCounts['atmosphere'] || {}} onChange={(val) => handleMultiSelect('atmosphere', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.atmosphere} options={Object.values(Atmosphere)} selected={filters.atmosphere} counts={availableCounts['atmosphere'] || {}} onChange={(val) => handleMultiSelect('atmosphere', val)} />
         
         {/* 7. Greenery / Jungle */}
-        <FilterSection title="Greenery / Jungle" options={Object.values(JungleVegetation)} selected={filters.jungle} counts={availableCounts['jungle'] || {}} onChange={(val) => handleMultiSelect('jungle', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.greenery} options={Object.values(JungleVegetation)} selected={filters.jungle} counts={availableCounts['jungle'] || {}} onChange={(val) => handleMultiSelect('jungle', val)} />
         
         {/* 8. Nightlife */}
-        <FilterSection title="Nightlife" options={Object.values(Nightlife)} selected={filters.nightlife} counts={availableCounts['nightlife'] || {}} onChange={(val) => handleMultiSelect('nightlife', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.nightlife} options={Object.values(Nightlife)} selected={filters.nightlife} counts={availableCounts['nightlife'] || {}} onChange={(val) => handleMultiSelect('nightlife', val)} />
         
         {/* 9. Marine Activities */}
-        <FilterSection title="Marine Activities" options={Object.values(MarineActivity)} selected={filters.marineActivities} counts={availableCounts['marineActivities'] || {}} onChange={(val) => handleMultiSelect('marineActivities', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.marineActivities} options={Object.values(MarineActivity)} selected={filters.marineActivities} counts={availableCounts['marineActivities'] || {}} onChange={(val) => handleMultiSelect('marineActivities', val)} />
         
         {/* 10. Watersports */}
-        <FilterSection title="Watersports" options={Object.values(Watersports)} selected={filters.watersports} counts={availableCounts['watersports'] || {}} onChange={(val) => handleMultiSelect('watersports', val)} />
+        <FilterSection lang={lang} title={text.filterHeaders.watersports} options={Object.values(Watersports)} selected={filters.watersports} counts={availableCounts['watersports'] || {}} onChange={(val) => handleMultiSelect('watersports', val)} />
 
         {/* 11. Features (Booleans) */}
         {showFeaturesSection && (
           <div className="mb-8 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
-             <h3 className="text-sm font-bold text-teal-800 uppercase tracking-wider mb-3">Features</h3>
+             <h3 className="text-sm font-bold text-teal-800 uppercase tracking-wider mb-3">{text.filterHeaders.features}</h3>
              <div className="space-y-1.5">
-               {renderBooleanFilter("Has Sandbank", 'hasSandbankAttached', 'Sandbank')}
-               {renderBooleanFilter("Floating Bar", 'hasFloatingBar', 'FloatingBar')}
+               {renderBooleanFilter(text.booleans.sandbank, 'hasSandbankAttached', 'Sandbank')}
+               {renderBooleanFilter(text.booleans.floatingBar, 'hasFloatingBar', 'FloatingBar')}
              </div>
           </div>
         )}

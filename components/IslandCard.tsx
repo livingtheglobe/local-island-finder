@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Island, Atoll } from '../types';
 import { Youtube, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
@@ -55,6 +54,13 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
   // Truncate description logic
   const shortDesc = description.slice(0, 120) + '...';
 
+  // Specific Guide IDs
+  const specificGuideIds = ['maafushi', 'gulhi', 'fulidhoo', 'thinadhoo', 'thoddoo'];
+  const hasSpecificGuide = specificGuideIds.includes(island.id);
+  const guideButtonLabel = hasSpecificGuide 
+    ? text.getSpecificGuide.replace('{island}', island.name) 
+    : text.getGuide;
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col h-full group">
       {/* Image Container - Reduced Height */}
@@ -102,10 +108,10 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
               href={island.travelGuideUrl} 
               target="_blank" 
               rel="noopener noreferrer"
-              className="flex items-center justify-center w-full bg-[#0d9488] hover:bg-[#0f766e] text-white py-2 rounded-md text-xs font-bold tracking-wide transition-colors shadow-sm"
+              className="flex items-center justify-center w-full bg-[#0d9488] hover:bg-[#0f766e] text-white py-2 rounded-md text-xs font-bold tracking-wide transition-colors shadow-sm uppercase"
             >
               <BookOpen size={14} className="mr-2" />
-              {text.getGuide}
+              {guideButtonLabel}
             </a>
           ) : (
             <div className="h-[34px]"></div>

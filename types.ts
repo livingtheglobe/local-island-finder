@@ -65,7 +65,7 @@ export enum MarineActivity {
 export enum JungleVegetation {
   Minimal = 'Minimal',
   Medium = 'Medium',
-  Large = 'Large',
+  Large = 'Dense',
 }
 
 export enum Nightlife {
@@ -79,6 +79,7 @@ export interface Island {
   name: string;
   atoll: Atoll;
   description: string;
+  descriptionDe?: string; // Added for German translation
   imageUrl: string;
   videoUrl?: string;
   travelGuideUrl?: string;

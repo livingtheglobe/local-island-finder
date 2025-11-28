@@ -1,14 +1,19 @@
+
 import React, { useState } from 'react';
 import { Island, Atoll } from '../types';
 import { Youtube, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
+import { Language, UI_TEXT, translate } from '../translations';
 
 interface IslandCardProps {
   island: Island;
+  lang: Language;
 }
 
-const AtollBadge: React.FC<{ atoll: Atoll }> = ({ atoll }) => {
+const AtollBadge: React.FC<{ atoll: Atoll, lang: Language }> = ({ atoll, lang }) => {
+  // Translate atoll name first
+  const translatedAtoll = translate(atoll, lang);
   // Extract simple name (everything before parenthesis)
-  const simpleName = atoll.split('(')[0].trim().toUpperCase();
+  const simpleName = translatedAtoll.split('(')[0].trim().toUpperCase();
   return (
     <div className="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-full z-10 shadow-sm border border-gray-100">
       <span className="text-[10px] font-bold tracking-wider text-teal-800 uppercase">{simpleName}</span>
@@ -23,8 +28,12 @@ const CompactStat: React.FC<{ label: string; value: string }> = ({ label, value 
   </div>
 );
 
-export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
+export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const text = UI_TEXT[lang];
+
+  // Pick description based on language
+  const description = (lang === 'de' && island.descriptionDe) ? island.descriptionDe : island.description;
 
   // Collect features and accommodations for tags
   const featureTags = [
@@ -44,7 +53,7 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
   const visibleTags = allTags;
 
   // Truncate description logic
-  const shortDesc = island.description.slice(0, 120) + '...';
+  const shortDesc = description.slice(0, 120) + '...';
 
   return (
     <div className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100 flex flex-col h-full">
@@ -56,7 +65,7 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
           className="w-full h-full object-cover"
           loading="lazy"
         />
-        <AtollBadge atoll={island.atoll} />
+        <AtollBadge atoll={island.atoll} lang={lang} />
       </div>
 
       {/* Content */}
@@ -66,14 +75,14 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
         </div>
         
         <div className="text-gray-600 text-sm leading-relaxed mb-3 flex-grow">
-          {isExpanded ? island.description : shortDesc}
+          {isExpanded ? description : shortDesc}
         </div>
         
         <button 
           onClick={() => setIsExpanded(!isExpanded)}
           className="text-gray-400 text-xs font-bold tracking-wide uppercase flex items-center mb-4 hover:text-teal-600 transition-colors w-fit"
         >
-          {isExpanded ? 'Read Less' : 'Read More'}
+          {isExpanded ? text.readLess : text.readMore}
           {isExpanded ? <ChevronUp size={14} className="ml-1"/> : <ChevronDown size={14} className="ml-1"/>}
         </button>
 
@@ -81,7 +90,7 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
         <div className="flex flex-wrap gap-1.5 mb-5">
           {visibleTags.map((tag, idx) => (
             <span key={idx} className="bg-cyan-50 text-cyan-900 text-[10px] font-medium px-2 py-0.5 rounded border border-cyan-100 leading-tight">
-              {tag}
+              {translate(tag, lang)}
             </span>
           ))}
         </div>
@@ -96,7 +105,7 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
               className="flex items-center justify-center w-full bg-[#0d9488] hover:bg-[#0f766e] text-white py-2 rounded-md text-xs font-bold tracking-wide transition-colors"
             >
               <BookOpen size={14} className="mr-2" />
-              GET TRAVEL GUIDE
+              {text.getGuide}
             </a>
           ) : (
             <div className="h-[34px]"></div>
@@ -110,7 +119,7 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
               className="flex items-center justify-center w-full bg-white hover:bg-gray-50 text-gray-700 py-2 rounded-md border border-gray-200 text-xs font-bold tracking-wide transition-colors shadow-sm"
             >
               <Youtube size={16} className="mr-2 text-red-600" />
-              WATCH WALKING TOUR
+              {text.watchTour}
             </a>
           ) : (
              <div className="h-[34px]"></div>
@@ -120,14 +129,15 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island }) => {
 
       {/* Detailed Features Grid - Compact 3-col */}
       <div className="px-5 py-3 bg-gray-50/80 border-t border-gray-100 mt-auto">
-        <div className="grid grid-cols-3 gap-y-2 gap-x-2">
-          <CompactStat label="Atmosphere" value={island.atmosphere.join(', ')} />
-          <CompactStat label="Size" value={island.size} />
-          <CompactStat label="Beach" value={island.bikiniBeach} />
+        {/* Adjusted grid-cols to give first column (Atmosphere) more space (approx 44%) */}
+        <div className="grid grid-cols-[44%_28%_28%] gap-y-2 gap-x-1">
+          <CompactStat label={text.labels.atmosphere} value={island.atmosphere.map(a => translate(a, lang)).join(', ')} />
+          <CompactStat label={text.labels.size} value={translate(island.size, lang)} />
+          <CompactStat label={text.labels.beach} value={translate(island.bikiniBeach, lang)} />
           
-          <CompactStat label="Nightlife" value={island.nightlife} />
-          <CompactStat label="Greenery" value={island.jungle} />
-          <CompactStat label="Sports" value={island.watersports} />
+          <CompactStat label={text.labels.nightlife} value={translate(island.nightlife, lang)} />
+          <CompactStat label={text.labels.greenery} value={translate(island.jungle, lang)} />
+          <CompactStat label={text.labels.sports} value={translate(island.watersports, lang)} />
         </div>
       </div>
     </div>

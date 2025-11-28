@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation, BikiniBeach, Watersports, JungleVegetation, Nightlife } from '../types';
-import { Check, BookOpen } from 'lucide-react';
+import { Check, BookOpen, RotateCcw } from 'lucide-react';
 import { translate, Language, UI_TEXT } from '../translations';
 
 interface FilterSidebarProps {
@@ -9,6 +9,7 @@ interface FilterSidebarProps {
   availableCounts: Record<string, Record<string, number>>;
   onReset: () => void;
   lang: Language;
+  hideHeader?: boolean;
 }
 
 const FilterSection: React.FC<{
@@ -59,7 +60,7 @@ const FilterSection: React.FC<{
   );
 };
 
-export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange, availableCounts, onReset, lang }) => {
+export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterChange, availableCounts, onReset, lang, hideHeader }) => {
   
   const handleMultiSelect = (key: keyof FilterState, value: string) => {
     const current = filters[key] as string[];
@@ -119,7 +120,7 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
   return (
     <div className="w-full">
       {/* Travel Guide Promo Section */}
-      <div className="mb-6 bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-gray-800 rounded-xl border border-teal-100 dark:border-teal-800 p-5 shadow-sm">
+      <div className="mb-4 bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-gray-800 rounded-xl border border-teal-100 dark:border-teal-800 p-5 shadow-sm">
         <h3 className="font-serif font-bold text-lg text-teal-900 dark:text-teal-300 mb-2 leading-tight">
           {text.promoTitle}
         </h3>
@@ -137,15 +138,18 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
         </a>
       </div>
 
-      <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
-        <h2 className="font-serif font-bold text-xl text-gray-900 dark:text-white">{text.filters}</h2>
-        <button 
-          onClick={onReset}
-          className="text-xs font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 uppercase tracking-wider px-3 py-1.5 rounded-full hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-colors border border-transparent hover:border-teal-100 dark:hover:border-teal-800"
-        >
-          {text.reset}
-        </button>
-      </div>
+      {/* Desktop Reset Button - Only shown if header isn't hidden (Mobile hides it because it's in the sticky bar) */}
+      {!hideHeader && (
+        <div className="flex justify-end mb-4">
+           <button 
+             onClick={onReset}
+             className="flex items-center gap-1.5 text-xs font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 uppercase tracking-wider px-3 py-1.5 rounded-lg hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-colors"
+           >
+             <RotateCcw size={12} />
+             {text.reset}
+           </button>
+        </div>
+      )}
 
       <div className="pr-1">
         {/* 1. Atoll */}

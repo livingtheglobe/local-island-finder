@@ -7,6 +7,7 @@ export const UI_TEXT = {
   en: {
     filters: "Filters",
     reset: "Reset All",
+    resetShort: "Reset",
     resetBtn: "Reset All Filters",
     readMore: "Read More",
     readLess: "Read Less",
@@ -55,6 +56,7 @@ export const UI_TEXT = {
   de: {
     filters: "Filter",
     reset: "Alle zurücksetzen",
+    resetShort: "Zurücksetzen",
     resetBtn: "Alle Filter zurücksetzen",
     readMore: "Mehr lesen",
     readLess: "Weniger lesen",

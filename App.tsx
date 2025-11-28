@@ -144,7 +144,7 @@ function App() {
   }, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-[#F4F2EC] dark:bg-gray-900 font-sans transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto px-4 py-8">
         
         {/* Header Section */}

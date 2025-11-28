@@ -1,6 +1,6 @@
 import React from 'react';
 import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation, BikiniBeach, Watersports, JungleVegetation, Nightlife } from '../types';
-import { Check, BookOpen, RotateCcw } from 'lucide-react';
+import { Check, RotateCcw } from 'lucide-react';
 import { translate, Language, UI_TEXT } from '../translations';
 
 interface FilterSidebarProps {
@@ -119,25 +119,6 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
 
   return (
     <div className="w-full">
-      {/* Travel Guide Promo Section */}
-      <div className="mb-4 bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-gray-800 rounded-xl border border-teal-100 dark:border-teal-800 p-5 shadow-sm">
-        <h3 className="font-serif font-bold text-lg text-teal-900 dark:text-teal-300 mb-2 leading-tight">
-          {text.promoTitle}
-        </h3>
-        <p className="text-sm text-teal-700/80 dark:text-teal-400/80 mb-4 leading-relaxed font-medium">
-          {text.promoDesc}
-        </p>
-        <a 
-          href="https://maldivesonabudget.net/products/maldives-budget-travel-guide" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="flex items-center justify-center w-full bg-teal-600 hover:bg-teal-700 text-white py-2.5 rounded-lg text-xs font-bold tracking-wide transition-all shadow-sm hover:shadow group"
-        >
-          <BookOpen size={16} className="mr-2 group-hover:scale-105 transition-transform" />
-          {text.promoButton}
-        </a>
-      </div>
-
       {/* Desktop Reset Button - Only shown if header isn't hidden (Mobile hides it because it's in the sticky bar) */}
       {!hideHeader && (
         <div className="flex justify-end mb-4">

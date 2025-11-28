@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
@@ -179,38 +180,39 @@ function App() {
         <div className="lg:hidden mb-6 sticky top-4 z-20">
           <div className={`w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}>
              
-             {/* Header Bar - Clickable to toggle, but includes Reset Button */}
+             {/* Header Bar - Grid Layout to center the Reset Button */}
              <div 
-               className="flex items-center justify-between px-5 py-4 cursor-pointer" 
+               className="grid grid-cols-[1fr_auto_1fr] items-center px-5 py-4 cursor-pointer gap-2" 
                onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
              >
-                <div className="flex items-center gap-2 text-gray-900 dark:text-white font-bold font-serif text-lg">
-                  <Filter size={20} className="text-teal-600 dark:text-teal-400" />
+                {/* Left: Filter Title */}
+                <div className="flex items-center gap-2 text-gray-900 dark:text-white font-bold font-serif text-lg justify-self-start">
+                  <Filter size={20} className="text-teal-600 dark:text-teal-400 shrink-0" />
                   <span>{text.filters}</span>
                   {activeFiltersCount > 0 && (
-                    <span className="bg-teal-600 text-white text-xs font-sans px-2 py-0.5 rounded-full ml-1">
+                    <span className="bg-teal-600 text-white text-xs font-sans px-2 py-0.5 rounded-full ml-1 shrink-0">
                       {activeFiltersCount}
                     </span>
                   )}
                 </div>
 
-                <div className="flex items-center gap-3">
-                   {/* Reset Button (Always visible on mobile/tablet) */}
+                {/* Center: Reset Button (Bigger and Centered) */}
+                <div className="justify-self-center w-full flex justify-center">
                    <button
                      onClick={(e) => {
                        e.stopPropagation();
                        resetFilters();
                      }}
-                     className="flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider px-3 py-1.5 bg-teal-50 dark:bg-teal-900/30 rounded-lg border border-teal-100 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors"
+                     className="flex items-center justify-center gap-1.5 text-sm font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider px-6 py-2 bg-teal-50 dark:bg-teal-900/30 rounded-lg border border-teal-100 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors shadow-sm"
                    >
-                     <RotateCcw size={12} />
-                     <span className="hidden sm:inline">{text.reset}</span>
+                     <RotateCcw size={14} />
+                     <span>{text.resetShort}</span>
                    </button>
+                </div>
                    
-                   {/* Chevron */}
-                   <div className="text-gray-500 dark:text-gray-400">
-                     {isMobileFiltersOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-                   </div>
+                {/* Right: Chevron */}
+                <div className="text-gray-500 dark:text-gray-400 justify-self-end">
+                   {isMobileFiltersOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </div>
              </div>
 

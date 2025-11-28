@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, MarineActivity, Accommodation, BikiniBeach, Watersports, JungleVegetation, Nightlife } from '../types';
 import { Check, BookOpen } from 'lucide-react';
@@ -26,8 +25,8 @@ const FilterSection: React.FC<{
   if (visibleOptions.length === 0) return null;
 
   return (
-    <div className="mb-6 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
-      <h3 className="text-sm font-bold text-teal-800 uppercase tracking-wider mb-3">{title}</h3>
+    <div className="mb-6 border-b border-gray-100 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+      <h3 className="text-sm font-bold text-teal-800 dark:text-teal-400 uppercase tracking-wider mb-3">{title}</h3>
       <div className="space-y-1.5">
         {visibleOptions.map((option) => {
           const isSelected = selected.includes(option);
@@ -45,11 +44,11 @@ const FilterSection: React.FC<{
                   onChange={() => onChange(option)}
                 />
                 <div className={`w-5 h-5 border rounded transition-all duration-200 flex items-center justify-center shadow-sm
-                  ${isSelected ? 'bg-teal-600 border-teal-600' : 'border-gray-300 bg-white group-hover:border-teal-400'}`}>
+                  ${isSelected ? 'bg-teal-600 border-teal-600 dark:bg-teal-500 dark:border-teal-500' : 'border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 group-hover:border-teal-400 dark:group-hover:border-teal-500'}`}>
                   {isSelected && <Check size={14} className="text-white" strokeWidth={3} />}
                 </div>
               </div>
-              <span className="ml-3 text-base text-gray-700 font-medium group-hover:text-teal-900 transition-colors leading-tight">
+              <span className="ml-3 text-base text-gray-700 dark:text-gray-300 font-medium group-hover:text-teal-900 dark:group-hover:text-teal-300 transition-colors leading-tight">
                 {translate(option, lang)}
               </span>
             </label>
@@ -86,11 +85,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
        <label className="flex items-center cursor-pointer group select-none py-0.5">
           <div className="relative flex items-center shrink-0">
             <input type="checkbox" className="peer sr-only" checked={isSelected} onChange={() => handleBooleanToggle(key)} />
-            <div className={`w-5 h-5 border rounded transition-all duration-200 flex items-center justify-center shadow-sm ${isSelected ? 'bg-teal-600 border-teal-600' : 'border-gray-300 bg-white group-hover:border-teal-400'}`}>
+            <div className={`w-5 h-5 border rounded transition-all duration-200 flex items-center justify-center shadow-sm ${isSelected ? 'bg-teal-600 border-teal-600 dark:bg-teal-500 dark:border-teal-500' : 'border-gray-300 bg-white dark:bg-gray-700 dark:border-gray-600 group-hover:border-teal-400 dark:group-hover:border-teal-500'}`}>
               {isSelected && <Check size={14} className="text-white" strokeWidth={3} />}
             </div>
           </div>
-          <span className="ml-3 text-base text-gray-700 font-medium group-hover:text-teal-900 transition-colors leading-tight">{label}</span>
+          <span className="ml-3 text-base text-gray-700 dark:text-gray-300 font-medium group-hover:text-teal-900 dark:group-hover:text-teal-300 transition-colors leading-tight">{label}</span>
        </label>
     );
   };
@@ -120,11 +119,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
   return (
     <div className="w-full">
       {/* Travel Guide Promo Section */}
-      <div className="mb-6 bg-gradient-to-br from-teal-50 to-white rounded-xl border border-teal-100 p-5 shadow-sm">
-        <h3 className="font-serif font-bold text-lg text-teal-900 mb-2 leading-tight">
+      <div className="mb-6 bg-gradient-to-br from-teal-50 to-white dark:from-teal-900/20 dark:to-gray-800 rounded-xl border border-teal-100 dark:border-teal-800 p-5 shadow-sm">
+        <h3 className="font-serif font-bold text-lg text-teal-900 dark:text-teal-300 mb-2 leading-tight">
           {text.promoTitle}
         </h3>
-        <p className="text-sm text-teal-700/80 mb-4 leading-relaxed font-medium">
+        <p className="text-sm text-teal-700/80 dark:text-teal-400/80 mb-4 leading-relaxed font-medium">
           {text.promoDesc}
         </p>
         <a 
@@ -138,11 +137,11 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
         </a>
       </div>
 
-      <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
-        <h2 className="font-serif font-bold text-xl text-gray-900">{text.filters}</h2>
+      <div className="flex justify-between items-center mb-6 pb-4 border-b border-gray-100 dark:border-gray-700">
+        <h2 className="font-serif font-bold text-xl text-gray-900 dark:text-white">{text.filters}</h2>
         <button 
           onClick={onReset}
-          className="text-xs font-bold text-teal-600 hover:text-teal-700 uppercase tracking-wider px-3 py-1.5 rounded-full hover:bg-teal-50 transition-colors border border-transparent hover:border-teal-100"
+          className="text-xs font-bold text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 uppercase tracking-wider px-3 py-1.5 rounded-full hover:bg-teal-50 dark:hover:bg-teal-900/30 transition-colors border border-transparent hover:border-teal-100 dark:hover:border-teal-800"
         >
           {text.reset}
         </button>
@@ -188,8 +187,8 @@ export const FilterSidebar: React.FC<FilterSidebarProps> = ({ filters, onFilterC
 
         {/* 11. Features (Booleans) */}
         {showFeaturesSection && (
-          <div className="mb-8 border-b border-gray-100 pb-6 last:border-0 last:pb-0">
-             <h3 className="text-sm font-bold text-teal-800 uppercase tracking-wider mb-3">{text.filterHeaders.features}</h3>
+          <div className="mb-8 border-b border-gray-100 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+             <h3 className="text-sm font-bold text-teal-800 dark:text-teal-400 uppercase tracking-wider mb-3">{text.filterHeaders.features}</h3>
              <div className="space-y-1.5">
                {renderBooleanFilter(text.booleans.sandbank, 'hasSandbankAttached', 'Sandbank')}
                {renderBooleanFilter(text.booleans.floatingBar, 'hasFloatingBar', 'FloatingBar')}

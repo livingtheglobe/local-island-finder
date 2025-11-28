@@ -154,7 +154,10 @@ function App() {
               {text.exploreTitle}
             </h1>
             <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base transition-colors">
-              {text.showingResults.replace('{count}', filteredIslands.length.toString())}
+              {activeFiltersCount === 0 
+                ? text.chooseFrom.replace('{count}', ISLANDS.length.toString())
+                : text.showingResults.replace('{count}', filteredIslands.length.toString())
+              }
             </p>
           </div>
           

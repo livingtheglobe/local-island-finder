@@ -3,7 +3,7 @@ import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
 import { IslandCard } from './components/IslandCard';
 import { FilterSidebar } from './components/FilterSidebar';
-import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe, Moon, Sun } from 'lucide-react';
+import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe, Moon, Sun, RotateCcw } from 'lucide-react';
 import { Language, UI_TEXT } from './translations';
 
 const INITIAL_FILTERS: FilterState = {
@@ -24,16 +24,12 @@ const INITIAL_FILTERS: FilterState = {
 
 function App() {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
-  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
+  // Default to open for mobile filters as requested
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(true);
   const [lang, setLang] = useState<Language>('en');
   
-  // Dark mode state
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return window.matchMedia('(prefers-color-scheme: dark)').matches;
-    }
-    return false;
-  });
+  // Dark mode state - Default to false (Light Mode) as requested
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   // Apply dark mode class to html element
   useEffect(() => {
@@ -181,41 +177,58 @@ function App() {
 
         {/* Mobile/Tablet Filter Toggle - Collapsible */}
         <div className="lg:hidden mb-6 sticky top-4 z-20">
-          <button 
-            onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
-            className={`w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl px-5 py-4 flex items-center justify-between shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}
-          >
-            <div className="flex items-center gap-2 text-gray-900 dark:text-white font-bold font-serif text-lg">
-              <Filter size={20} className="text-teal-600 dark:text-teal-400" />
-              <span>{text.filters}</span>
-              {activeFiltersCount > 0 && (
-                <span className="bg-teal-600 text-white text-xs font-sans px-2 py-0.5 rounded-full ml-1">
-                  {activeFiltersCount}
-                </span>
-              )}
-            </div>
-            {isMobileFiltersOpen ? <ChevronUp size={20} className="text-gray-500" /> : <ChevronDown size={20} className="text-gray-500" />}
-          </button>
+          <div className={`w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}>
+             
+             {/* Header Bar - Clickable to toggle, but includes Reset Button */}
+             <div 
+               className="flex items-center justify-between px-5 py-4 cursor-pointer" 
+               onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
+             >
+                <div className="flex items-center gap-2 text-gray-900 dark:text-white font-bold font-serif text-lg">
+                  <Filter size={20} className="text-teal-600 dark:text-teal-400" />
+                  <span>{text.filters}</span>
+                  {activeFiltersCount > 0 && (
+                    <span className="bg-teal-600 text-white text-xs font-sans px-2 py-0.5 rounded-full ml-1">
+                      {activeFiltersCount}
+                    </span>
+                  )}
+                </div>
 
-          {/* Collapsible Content */}
-          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileFiltersOpen ? 'max-h-[85vh] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-2xl flex flex-col max-h-[80vh]">
-               {/* Header for mobile filter dropdown */}
-               <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100 dark:border-gray-700 shrink-0">
-                 <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{text.selectFilters}</span>
-                 <button onClick={() => setIsMobileFiltersOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
-                   <X size={20} />
-                 </button>
-               </div>
-               
-               {/* Scrollable Area - Fixed with flex-1 and padding-bottom */}
-               <div className="flex-1 overflow-y-auto custom-scrollbar overscroll-contain p-6 pb-24">
+                <div className="flex items-center gap-3">
+                   {/* Reset Button (Always visible on mobile/tablet) */}
+                   <button
+                     onClick={(e) => {
+                       e.stopPropagation();
+                       resetFilters();
+                     }}
+                     className="flex items-center gap-1.5 text-xs font-bold text-teal-600 dark:text-teal-400 uppercase tracking-wider px-3 py-1.5 bg-teal-50 dark:bg-teal-900/30 rounded-lg border border-teal-100 dark:border-teal-800 hover:bg-teal-100 dark:hover:bg-teal-900/50 transition-colors"
+                   >
+                     <RotateCcw size={12} />
+                     <span className="hidden sm:inline">{text.reset}</span>
+                   </button>
+                   
+                   {/* Chevron */}
+                   <div className="text-gray-500 dark:text-gray-400">
+                     {isMobileFiltersOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+                   </div>
+                </div>
+             </div>
+
+            {/* Collapsible Content */}
+            <div className={`overflow-hidden transition-all duration-300 ease-in-out flex flex-col ${isMobileFiltersOpen ? 'max-h-[70dvh] opacity-100' : 'max-h-0 opacity-0'}`}>
+               {/* 
+                  Fix mobile scrolling:
+                  1. max-h-[70dvh] prevents it from going off-screen on small devices.
+                  2. pb-32 adds huge padding at bottom so the last item (Features) isn't cut off by browser bars.
+               */}
+               <div className="flex-1 overflow-y-auto custom-scrollbar overscroll-contain p-6 pb-32 border-t border-gray-100 dark:border-gray-700">
                   <FilterSidebar 
                     filters={filters} 
                     onFilterChange={updateFilter} 
                     availableCounts={availableCounts}
                     onReset={resetFilters}
                     lang={lang}
+                    hideHeader={true} // Hide redundant "Filters" header inside mobile view
                   />
                </div>
             </div>
@@ -226,7 +239,13 @@ function App() {
           
           {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-1/4 flex-shrink-0">
-             <div className="sticky top-8 bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm max-h-[calc(100vh-4rem)] overflow-y-auto custom-scrollbar transition-colors">
+             {/* 
+                Fix desktop scrolling:
+                1. sticky top-8 (32px)
+                2. max-h-[calc(100vh-6rem)] (approx 100vh - 96px). 
+                   This leaves ~64px gap at bottom, ensuring scrollbar and content are always visible.
+             */}
+             <div className="sticky top-8 bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm max-h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar transition-colors">
                <FilterSidebar 
                  filters={filters} 
                  onFilterChange={updateFilter} 

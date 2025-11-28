@@ -1,10 +1,9 @@
-
 import React, { useState, useMemo, useEffect } from 'react';
 import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
 import { IslandCard } from './components/IslandCard';
 import { FilterSidebar } from './components/FilterSidebar';
-import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe, Moon, Sun, RotateCcw } from 'lucide-react';
+import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe, Moon, Sun, RotateCcw, BookOpen } from 'lucide-react';
 import { Language, UI_TEXT } from './translations';
 
 const INITIAL_FILTERS: FilterState = {
@@ -143,6 +142,21 @@ function App() {
     return acc;
   }, 0);
 
+  // Result Count Text Rendering Helper
+  const renderResultText = () => {
+    const activeIslandsCount = activeFiltersCount === 0 ? ISLANDS.length : filteredIslands.length;
+    const template = activeFiltersCount === 0 ? text.chooseFrom : text.showingResults;
+    const parts = template.split('{count}');
+    
+    return (
+      <>
+        {parts[0]}
+        <span className="font-bold">{activeIslandsCount}</span>
+        {parts[1]}
+      </>
+    );
+  };
+
   return (
     <div className="min-h-screen bg-[#F4F2EC] dark:bg-gray-900 font-sans transition-colors duration-300">
       <div className="max-w-[1400px] mx-auto px-4 py-8">
@@ -153,12 +167,7 @@ function App() {
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-2 transition-colors">
               {text.exploreTitle}
             </h1>
-            <p className="text-gray-500 dark:text-gray-400 text-sm md:text-base transition-colors">
-              {activeFiltersCount === 0 
-                ? text.chooseFrom.replace('{count}', ISLANDS.length.toString())
-                : text.showingResults.replace('{count}', filteredIslands.length.toString())
-              }
-            </p>
+            {/* Removed the result count from here */}
           </div>
           
           <div className="flex gap-3">
@@ -178,6 +187,29 @@ function App() {
             </button>
           </div>
         </div>
+
+        {/* Promo Banner Button - Updated Design (Light Card) */}
+        <a 
+          href="https://maldivesonabudget.net/products/maldives-budget-travel-guide" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="block mb-8 bg-teal-50 dark:bg-teal-900/20 rounded-xl shadow-sm hover:shadow-md transition-all p-5 md:p-6 group decoration-none border border-teal-100 dark:border-teal-800/50"
+        >
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex-1">
+              <h3 className="font-serif font-bold text-lg md:text-2xl mb-2 text-teal-900 dark:text-teal-100 flex items-center gap-2">
+                <BookOpen size={24} className="text-teal-700 dark:text-teal-300" />
+                {text.promoTitle}
+              </h3>
+              <p className="text-teal-800/80 dark:text-teal-200/80 text-sm md:text-base font-medium leading-relaxed max-w-2xl">
+                {text.promoDesc}
+              </p>
+            </div>
+            <div className="shrink-0 w-full md:w-auto text-center bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-lg text-sm transition-colors shadow-sm whitespace-nowrap uppercase tracking-wider">
+              {text.promoButton}
+            </div>
+          </div>
+        </a>
 
         {/* Mobile/Tablet Filter Toggle - Collapsible */}
         <div className="lg:hidden mb-6 sticky top-4 z-20">
@@ -263,6 +295,14 @@ function App() {
 
           {/* Grid */}
           <main className="w-full lg:w-3/4">
+            
+            {/* NEW: Results Count Box */}
+            <div className="mb-6 py-3 px-2 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 text-center shadow-sm transition-colors overflow-hidden">
+               <h2 className="text-sm md:text-2xl font-serif font-light md:font-normal text-gray-800 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis">
+                  {renderResultText()}
+               </h2>
+            </div>
+
             {filteredIslands.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 {filteredIslands.map(island => (

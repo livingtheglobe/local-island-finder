@@ -1,4 +1,3 @@
-
 export enum Atoll {
   SouthMale = 'South Malé (South Kaafu)',
   NorthMale = 'North Malé (North Kaafu)',

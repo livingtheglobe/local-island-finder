@@ -198,21 +198,26 @@ function App() {
           </button>
 
           {/* Collapsible Content */}
-          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileFiltersOpen ? 'max-h-[1000px] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm">
-               <div className="flex justify-between items-center mb-4 lg:hidden">
+          <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileFiltersOpen ? 'max-h-[85vh] opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+            <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-2xl flex flex-col max-h-[80vh]">
+               {/* Header for mobile filter dropdown */}
+               <div className="flex justify-between items-center px-6 py-4 border-b border-gray-100 dark:border-gray-700 shrink-0">
                  <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">{text.selectFilters}</span>
-                 <button onClick={() => setIsMobileFiltersOpen(false)} className="text-gray-400 hover:text-gray-600">
-                   <X size={18} />
+                 <button onClick={() => setIsMobileFiltersOpen(false)} className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 p-1">
+                   <X size={20} />
                  </button>
                </div>
-               <FilterSidebar 
-                 filters={filters} 
-                 onFilterChange={updateFilter} 
-                 availableCounts={availableCounts}
-                 onReset={resetFilters}
-                 lang={lang}
-               />
+               
+               {/* Scrollable Area - Fixed with flex-1 and padding-bottom */}
+               <div className="flex-1 overflow-y-auto custom-scrollbar overscroll-contain p-6 pb-24">
+                  <FilterSidebar 
+                    filters={filters} 
+                    onFilterChange={updateFilter} 
+                    availableCounts={availableCounts}
+                    onReset={resetFilters}
+                    lang={lang}
+                  />
+               </div>
             </div>
           </div>
         </div>

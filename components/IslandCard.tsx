@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+
 import { Island, Atoll } from '../types';
 import { Youtube, BookOpen, ChevronDown, ChevronUp } from 'lucide-react';
 import { Language, UI_TEXT, translate } from '../translations';
@@ -6,12 +6,12 @@ import { Language, UI_TEXT, translate } from '../translations';
 interface IslandCardProps {
   island: Island;
   lang: Language;
+  isExpanded: boolean;
+  onToggle: () => void;
 }
 
 const AtollBadge: React.FC<{ atoll: Atoll, lang: Language }> = ({ atoll, lang }) => {
-  // Translate atoll name first
   const translatedAtoll = translate(atoll, lang);
-  // Extract simple name (everything before parenthesis)
   const simpleName = translatedAtoll.split('(')[0].trim().toUpperCase();
   return (
     <div className="absolute top-3 right-3 bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm px-2.5 py-1 rounded-full z-10 shadow-sm border border-gray-100 dark:border-gray-700">
@@ -27,21 +27,17 @@ const CompactStat: React.FC<{ label: string; value: string }> = ({ label, value 
   </div>
 );
 
-export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+export const IslandCard: React.FC<IslandCardProps> = ({ island, lang, isExpanded, onToggle }) => {
   const text = UI_TEXT[lang];
 
-  // Pick description based on language
   const description = (lang === 'de' && island.descriptionDe) ? island.descriptionDe : island.description;
 
-  // Collect features and accommodations for tags
   const featureTags = [
     ...(island.hasSandbankAttached ? ['Sandbank'] : []),
     ...(island.hasFloatingBar ? ['Floating Bar'] : []),
     ...island.accommodations,
   ];
 
-  // Combine tags
   const allTags = [
     ...featureTags,
     ...island.transferTypes,
@@ -51,10 +47,30 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
 
   const visibleTags = allTags;
 
-  // Truncate description logic
-  const shortDesc = description.slice(0, 120) + '...';
+  // Formatting helper for paragraphs and bold text
+  const renderFormattedDescription = (textStr: string) => {
+    return textStr.split('\n\n').map((para, i) => {
+      const parts = para.split(/(\*\*.*?\*\*)/g);
+      return (
+        <p key={i} className="mb-4 last:mb-0">
+          {parts.map((part, j) => {
+            if (part.startsWith('**') && part.endsWith('**')) {
+              return <strong key={j} className="text-gray-900 dark:text-white font-bold">{part.slice(2, -2)}</strong>;
+            }
+            return part;
+          })}
+        </p>
+      );
+    });
+  };
 
-  // Specific Guide IDs
+  // Truncate logic for collapsed view (strips markdown markers)
+  const getShortDesc = (textStr: string) => {
+    const cleanText = textStr.replace(/\*\*/g, '').replace(/\n/g, ' ');
+    if (cleanText.length <= 140) return cleanText;
+    return cleanText.slice(0, 140) + '...';
+  };
+
   const specificGuideIds = ['maafushi', 'gulhi', 'fulidhoo', 'thinadhoo', 'thoddoo'];
   const hasSpecificGuide = specificGuideIds.includes(island.id);
   const guideButtonLabel = hasSpecificGuide 
@@ -63,7 +79,6 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-gray-700 flex flex-col h-full group">
-      {/* Image Container - Reduced Height */}
       <div className="relative h-48 w-full bg-gray-200 dark:bg-gray-700 shrink-0">
         <img 
           src={island.imageUrl} 
@@ -74,25 +89,23 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
         <AtollBadge atoll={island.atoll} lang={lang} />
       </div>
 
-      {/* Content */}
       <div className="p-5 flex flex-col flex-grow">
         <div className="flex justify-between items-start mb-2">
           <h2 className="text-xl font-serif font-bold text-gray-900 dark:text-white leading-tight group-hover:text-teal-700 dark:group-hover:text-teal-400 transition-colors">{island.name}</h2>
         </div>
         
-        <div className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-3 flex-grow">
-          {isExpanded ? description : shortDesc}
+        <div className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed mb-1 flex-grow">
+          {isExpanded ? renderFormattedDescription(description) : getShortDesc(description)}
         </div>
         
         <button 
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="text-gray-400 hover:text-teal-600 dark:text-gray-500 dark:hover:text-teal-400 text-xs font-bold tracking-wide uppercase flex items-center mb-4 transition-colors w-fit"
+          onClick={onToggle}
+          className="text-teal-600 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300 text-xs font-bold tracking-wide uppercase flex items-center py-2 mb-2 transition-colors w-fit"
         >
           {isExpanded ? text.readLess : text.readMore}
           {isExpanded ? <ChevronUp size={14} className="ml-1"/> : <ChevronDown size={14} className="ml-1"/>}
         </button>
 
-        {/* Tags - Compact */}
         <div className="flex flex-wrap gap-1.5 mb-5">
           {visibleTags.map((tag, idx) => (
             <span key={idx} className="bg-cyan-50 dark:bg-cyan-900/30 text-cyan-900 dark:text-cyan-200 text-[10px] font-medium px-2 py-0.5 rounded border border-cyan-100 dark:border-cyan-800/50 leading-tight">
@@ -101,7 +114,6 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
           ))}
         </div>
 
-        {/* Action Buttons - Compact */}
         <div className="space-y-2 mt-auto">
           {island.travelGuideUrl ? (
             <a 
@@ -133,9 +145,7 @@ export const IslandCard: React.FC<IslandCardProps> = ({ island, lang }) => {
         </div>
       </div>
 
-      {/* Detailed Features Grid - Compact 3-col */}
       <div className="px-5 py-3 bg-gray-50/80 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-700 mt-auto">
-        {/* Adjusted grid-cols to give first column (Atmosphere) more space (40/30/30) */}
         <div className="grid grid-cols-[40%_30%_30%] gap-y-2 gap-x-1">
           <CompactStat label={text.labels.atmosphere} value={island.atmosphere.map(a => translate(a, lang)).join(', ')} />
           <CompactStat label={text.labels.size} value={translate(island.size, lang)} />

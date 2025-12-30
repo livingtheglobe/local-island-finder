@@ -18,7 +18,7 @@ export enum TransferType {
 export enum FerryAccess {
   Direct = 'Direct Public Ferry',
   Transfer = '2 Public Ferries (Must Transfer)',
-  None = 'No Public Ferry',
+  None = 'No Public Ferry from Malé',
 }
 
 export enum IslandSize {

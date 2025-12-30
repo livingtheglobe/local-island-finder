@@ -223,7 +223,7 @@ Der Bikini-Strand ist lang und gepflegt. Da er von Hotels und Gästehäusern ges
 Thulusdhoo wirkt modern und entwickelt. Es gibt viele Strandrestaurants mit trendigem Dekor und einer Mischung aus lokaler und internationaler Küche. Eine Besonderheit ist die schwimmende Bar vor der Küste, auf der alkoholische Getränke serviert werden – eine Seltenheit auf Einheimischen-Inseln.
 
 **Ausflüge & Surfen**
-Surfen ist hier die Hauptattraktion, insbesondere der legendäre „Cokes“ Surf-Break. Aber auch Anfänger können hier Unterricht nehmen. Darüber hinaus gibt es klassische Ausflüge wie Riffschnorcheln, Delfin-Touren und Sandbank-Trips.
+Surfen ist hier die Hauptattraction, insbesondere der legendäre „Cokes“ Surf-Break. Aber auch Anfänger können hier Unterricht nehmen. Darüber hinaus gibt es klassische Ausflüge wie Riffschnorcheln, Delfin-Touren und Sandbank-Trips.
 
 **Fazit**
 Wenn Sie eine gesellige Insel mit modernem Vibe, Surfmöglichkeiten und trendigen Cafés suchen, ist Thulusdhoo eine ausgezeichnete Wahl.`,
@@ -481,8 +481,32 @@ Wenn Sie ein Resort-Feeling mit Dschungel-Landschaft und traumhaften Stränden s
     id: 'keyodhoo',
     name: 'Keyodhoo',
     atoll: Atoll.Vaavu,
-    description: `A small, authentic fishing island about 2 hours from Malé by speedboat or direct public ferry. It’s known for its excellent house reef just steps from shore. Keep in mind, dining options are limited, so it’s best to stay at a guesthouse that includes a meal plan. Quiet, local, and great for snorkeling lovers.`,
-    descriptionDe: `Eine kleine, authentische Fischerinsel, etwa 2 Stunden von Malé entfernt. Bekannt für ihr hervorragendes Hausriff direkt vor der Küste. Die gastronomischen Angebote sind begrenzt, daher empfiehlt sich ein Gästehaus mit Verpflegung. Ruhig, lokal und großartig für Schnorchelfans.`,
+    description: `A small, authentic fishing island about 2 hours from Malé by speedboat or direct public ferry. It has a quiet, local atmosphere and is best known for its excellent house reef just steps from shore. If you’re looking for simplicity, a friendly local vibe, and great snorkeling without needing tours, Keyodhoo is a great fit. Just keep in mind that dining options are limited, so it’s best to stay at a guesthouse that includes meals.
+
+**Bikini Beach**
+The Bikini Beach here is on the smaller side, but it has a built-in canopy for shade and a peaceful setting. There are a few rocks in the water, especially noticeable at low tide, but you can still find good spots for swimming. The water tends to get quite shallow as the tide goes out, but it’s calm and fine for a relaxing dip.
+
+**Excursions**
+Keyodhoo offers the same types of tours you’ll find across Vaavu Atoll. It’s about 40 minutes by boat to the popular Nurse Shark Point, and seasonal manta ray trips run May through September. One highlight of the area is turtle snorkeling. Keyodhoo’s reef is a known turtle spot, and even tours from other islands bring their guests here for it. There’s also a nearby sandbank about 10–15 minutes away, and dolphin sightings are common in the area.
+
+**Restaurants & Island Vibe**
+This is a quiet, non-touristy island where you can easily walk everywhere without needing any transport. There aren’t many standalone restaurants, so most travelers book a stay that includes meals. The guesthouses are usually welcoming and offer simple but hearty food. It’s a relaxing island if you’re looking for space to unwind without distractions.
+
+**Final Thoughts**
+If you’re looking for a peaceful, snorkel-friendly island with strong local character and an excellent house reef, Keyodhoo might be a great choice. It’s not built for nightlife or upscale dining, but for nature lovers who prefer a walkable island with zero crowds, it’s a lovely escape.`,
+    descriptionDe: `Eine kleine, authentische Fischerinsel im Vaavu-Atoll. Sie bietet eine ruhige, lokale Atmosphäre und ist vor allem für ihr hervorragendes Hausriff bekannt, das nur wenige Schritte vom Ufer entfernt liegt. Ideal für alle, die Einfachheit und tolles Schnorcheln suchen.
+
+**Bikini-Strand**
+Der Bikini-Strand hier ist eher klein, bietet aber eine Überdachung für Schatten und eine friedliche Umgebung. Das Wasser ist ruhig und perfekt für ein entspanntes Bad, auch wenn es bei Ebbe sehr flach werden kann.
+
+**Ausflüge**
+Keyodhoo bietet die typischen Touren des Vaavu-Atolls an: Nurse Shark Point (40 Min.), saisonale Mantas und Schnorcheln mit Schildkröten. Eine nahegelegene Sandbank ist in 10-15 Minuten erreichbar.
+
+**Restaurants & Inselatmosphäre**
+Dies ist eine ruhige, untouristische Insel. Es gibt kaum eigenständige Restaurants, daher ist Verpflegung im Gästehaus meist die beste Wahl. Man kann alles bequem zu Fuß erkunden.
+
+**Fazit**
+Ein schöner Rückzugsort für Naturliebhaber, die eine begehbare Insel ohne Menschenmassen und mit exzellentem Hausriff bevorzugen.`,
     imageUrl: 'https://cdn.shopify.com/s/files/1/0942/5666/0784/files/Keyodhoo.webp?v=1763809788',
     videoUrl: 'https://youtu.be/hohK5qkh88A',
     dimensions: '1.3km x 0.7km',
@@ -508,8 +532,32 @@ Wenn Sie ein Resort-Feeling mit Dschungel-Landschaft und traumhaften Stränden s
     id: 'rasdhoo',
     name: 'Rasdhoo',
     atoll: Atoll.NorthAri,
-    description: `A compact island known for its excellent diving scene, with over 20 dive sites just minutes away. Only 1 hour by speedboat or accessible by direct public ferry from Malé. While greenery is minimal, Rasdhoo makes up for it with wellness-focused guesthouses, a convenient Bikini Beach, and seasonal manta ray snorkeling nearby. A solid pick if you’re here to dive or unwind.`,
-    descriptionDe: `Eine kompakte Insel, bekannt für ihre exzellente Tauchszene mit über 20 Tauchplätzen in unmittelbarer Nähe. Nur 1 Stunde per Schnellboot oder Direktfähre von Malé. Wenig Grün, aber dafür Wellness-orientierte Gästehäuser, ein gut erreichbarer Bikini-Strand und saisonales Manta-Schnorcheln in der Nähe. Solide Wahl zum Tauchen oder Entspannen.`,
+    description: `A compact island just 1 hour from Malé by speedboat or accessible via direct public ferry. Rasdhoo is best known for its world-class diving, with over 20 dive sites just minutes away, but it also offers a wide range of activities for non-divers too. The island is easy to explore on foot, has a friendly local vibe, and there are multiple speedboat companies that service it daily, making it one of the more convenient options for first-time visitors.
+
+**Bikini Beach**
+The Bikini Beach is a great size and one of the highlights of the island. It’s lined with palm trees and has natural greenery for shade, giving it a lush feel even though the rest of the island is not heavily forested. Several beachfront restaurants line the sand, and the water is calm and easy to enter, making it perfect for both relaxing and swimming.
+
+**Excursions**
+Rasdhoo is packed with activity options. It’s only 30 minutes from the Nurse Shark Point, and offers seasonal manta ray snorkeling (typically May through September). The nearest sandbank is less than 5 minutes away, and there’s also a blue lagoon, turtle reef, picnic island, and dolphin tours. Whether you’re here for marine life or chill day trips, you’ll have plenty to choose from.
+
+**Restaurants & Island Vibe**
+You’ll find several beachfront restaurants right on the Bikini Beach, offering local and international options. The overall vibe is authentic and welcoming, with locals who are used to tourists but still keep their island charm. Entertainment depends on where you stay and the season. Some hotels like Shallow Lagoon host Bodu Beru nights when guest numbers are high, other places have beach DJs. The island is small and walkable, with a laid-back but active feel.
+
+**Final Thoughts**
+Rasdhoo is a top pick for divers but also works great for anyone who wants a mix of activities, a swimmable beach, and a local island vibe. It’s easy to get to, packed with excursions, and has enough going on to keep your days full, but still feels peaceful and manageable in size.`,
+    descriptionDe: `Eine kompakte Insel, nur 1 Stunde per Schnellboot von Malé entfernt. Rasdhoo ist weltberühmt für das Tauchen mit über 20 Tauchplätzen in der Nähe, bietet aber auch für Nicht-Taucher viel Abwechslung.
+
+**Bikini-Strand**
+Der Bikini-Strand ist großzügig und eines der Highlights. Er ist von Palmen und Grün gesäumt, was ihm ein tropisches Flair verleiht. Strandrestaurants und ruhiges Wasser machen ihn perfekt zum Entspannen.
+
+**Ausflüge**
+Rasdhoo bietet Unmengen an Optionen: Nurse Shark Point (30 Min.), saisonale Mantas, eine Sandbank in 5 Minuten Entfernung, eine blaue Lagune und Delphin-Touren.
+
+**Restaurants & Inselatmosphäre**
+Es gibt mehrere Restaurants direkt am Bikini-Strand. Die Atmosphäre ist authentisch und einladend. Je nach Saison gibt es Abendunterhaltung wie Bodu Beru oder Strand-DJs.
+
+**Fazit**
+Top-Wahl für Taucher und alle, die einen Mix aus Aktivitäten und einem tollen Strand suchen.`,
     imageUrl: 'https://cdn.shopify.com/s/files/1/0942/5666/0784/files/Rasdhoo.webp?v=1763807762',
     videoUrl: 'https://youtu.be/6C3gneIoeIM',
     dimensions: '575m x 400m',
@@ -609,8 +657,32 @@ Wenn Sie ein Resort-Feeling mit Dschungel-Landschaft und traumhaften Stränden s
     id: 'mathiveri',
     name: 'Mathiveri',
     atoll: Atoll.NorthAri,
-    description: `A peaceful, medium-sized island in North Ari Atoll, about 1.5 hours by speedboat from Malé. Public ferry access is available but requires a transfer at Ukulhas. Mathiveri is home to a gorgeous sandbank just offshore. You can walk to it at low tide or take a quick boat ride. It’s also a seasonal spot for manta snorkeling and has a relaxed, friendly local vibe that’s easy to fall in love with.`,
-    descriptionDe: `Eine friedliche, mittelgroße Insel im Nord-Ari-Atoll, ca. 1,5 Std. per Schnellboot. Fähranreise erfordert Umstieg in Ukulhas. Mathiveri hat eine wunderschöne Sandbank vor der Küste, die bei Ebbe zu Fuß erreichbar ist. Saisonaler Manta-Spot mit entspannter, freundlicher lokaler Atmosphäre.`,
+    description: `A peaceful, medium-sized island in North Ari Atoll, Mathiveri is about 1.5 hours from Malé by speedboat. Public ferry access is possible, though it requires a transfer at Ukulhas. The island has a calm, friendly vibe and is known for its stunning natural sandbank just offshore. On one side of the island, there’s a stretch of tall palm trees perfectly lined up, making it a favorite photo spot and a beautiful place for a walk.
+
+**Bikini Beach**
+The Bikini Beach here is quite small and doesn't offer much natural shade. While it’s still swimmable, many people actually prefer heading to the nearby sandbank, which feels more spacious and tropical. In low tide you can even walk across the canal to the sandbank. Often times there is a local boat shuttle available for a small fee. 
+
+**Excursions**
+Mathiveri offers a laid-back excursion scene, but it still covers the highlights. You can swim with seasonal mantas (May-September), visit a nearby nurse shark point, or enjoy relaxed sandbank trips and snorkeling tours. Everything is close by, so the vibe stays low-key while still delivering that classic Maldives experience.
+
+**Restaurants & Island Vibe**
+While there aren’t any true beachfront restaurants, you’ll find a few stylish cafes and guesthouse restaurants scattered around the island. The food is solid, with both local and international options. The overall atmosphere is chill and local, ideal for people who want to slow down and enjoy island life without a big tourist crowd.
+
+**Final Thoughts**
+Mathiveri is a great choice and actually underrated. If you're looking for a peaceful island with a beautiful sandbank, good excursion access, and a cozy, local vibe. It’s not flashy, but it's easy to fall in love with and perfect if you want to relax without overplanning your days.`,
+    descriptionDe: `Eine friedliche, mittelgroße Insel im Nord-Ari-Atoll, ca. 1,5 Stunden von Malé entfernt. Bekannt für ihre wunderschöne Sandbank direkt vor der Küste. Auf einer Seite der Insel gibt es eine Reihe perfekt ausgerichteter hoher Palmen – ein beliebter Fotospot und ein schöner Ort für einen Spaziergang.
+
+**Bikini-Strand**
+Der Bikini-Strand hier ist recht klein und bietet wenig natürlichen Schatten. Viele Besucher bevorzugen die nahegelegene Sandbank, die bei Ebbe sogar zu Fuß erreichbar ist. Oft gibt es einen Bootstransfer für eine kleine Gebühr.
+
+**Ausflüge**
+Mathiveri bietet eine entspannte Ausflugsszene: saisonale Mantas (Mai-September), Nurse Shark Point und klassische Schnorcheltouren. Alles liegt nah beieinander.
+
+**Restaurants & Inselatmosphäre**
+Es gibt keine direkten Strandrestaurants, aber einige stilvolle Cafés im Dorf. Die Atmosphäre ist sehr entspannt und lokal – ideal für alle, die das Inselleben ohne große Touristenmassen genießen wollen.
+
+**Fazit**
+Mathiveri ist eine großartige Wahl und wird oft unterschätzt. Perfekt für alle, die eine friedliche Insel mit einer traumhaften Sandbank und gemütlichem Flair suchen.`,
     imageUrl: 'https://cdn.shopify.com/s/files/1/0942/5666/0784/files/Mathiveri.webp?v=1763809813',
     videoUrl: 'https://youtu.be/pwqYbW3hMHc',
     dimensions: '0.775km x 0.475km',
@@ -634,8 +706,32 @@ Wenn Sie ein Resort-Feeling mit Dschungel-Landschaft und traumhaften Stränden s
     id: 'feridhoo',
     name: 'Feridhoo',
     atoll: Atoll.NorthAri,
-    description: `A large, authentic island in North Ari Atoll, reachable by 1.5 to 2 hour speedboat. Public ferry access is available but requires a transfer at Ukulhas. Feridhoo is covered in lush tropical forest and feels peaceful even during high season. It’s a great base for tours to the North Ari nurse sharks and for whale shark and manta excursions heading toward South Ari.`,
-    descriptionDe: `Eine große, authentische Insel im Nord-Ari-Atoll, 1,5–2 Std. per Schnellboot. Fähranreise mit Umstieg. Feridhoo ist von üppigem Tropenwald bedeckt und selbst in der Hochsaison friedlich. Toller Ausgangspunkt für Ammenhai-Touren im Norden und Walhai-/Manta-Ausflüge Richtung Süd-Ari.`,
+    description: `A large, peaceful island in North Ari Atoll, Feridhoo is reachable by 1.5 to 2 hour speedboat from Malé. Public ferry access is also possible, but requires a transfer at Ukulhas. Covered in lush tropical forest and still new to tourism, this quiet island offers a laid-back, authentic vibe with minimal crowds, even in high season.
+
+**Bikini Beach**
+Feridhoo has one of the most scenic and relaxing Bikini Beaches in the area. The sand is soft and powdery, and the beach is long with a gentle slope into the water. It’s protected by the reef, so the water stays calm even during monsoon season, great for swimming year-round. There’s a small area with loungers and some manmade shade, but most of the tree line is dense bush, so natural shade is limited. While you won’t find many palm trees directly on the Bikini Beach, the rest of the island has plenty of beautiful palm-lined local beaches for photos and walks.
+
+**Excursions**
+This island offers the best of both worlds. Even though it’s in North Ari, it’s close enough to reach South Ari for whale shark and manta excursions. These trips are a bit longer and more expensive than from South Ari islands, but still very doable. For nurse shark tours, boats typically head toward Mathiveri, slightly pricier than from islands closer to the site, but still an option. You’ll also find typical tours like dolphin watching, sandbanks, and vibrant reef snorkeling. Bonus: Feridhoo has a small but lively house reef you can swim to directly from shore, no boat needed.
+
+**Restaurants & Island Vibe**
+The island is still new to tourism, so guesthouses and restaurants are simple and authentic. It’s not a spot for affordable luxury or trendy cafés, but that’s part of its charm. Most accommodations are small and family-run, and meals are usually included in your stay. What makes Feridhoo special is the peaceful, untouched jungle feel and the sense that you’ve really escaped.
+
+**Final Thoughts**
+Feridhoo is perfect if you’re looking for peace, nature, and a true local vibe without the buzz of tourism. If you don’t need fancy restaurants or modern hotels and just want to relax, snorkel, and enjoy lush forest walks, this is a solid choice, especially if you want to explore both North and South Ari from one base.`,
+    descriptionDe: `Eine große, friedliche Insel im Nord-Ari-Atoll, ca. 1,5 bis 2 Stunden per Schnellboot entfernt. Bedeckt von üppigem Tropenwald und noch relativ neu im Tourismus, bietet sie eine sehr authentische Atmosphäre ohne Menschenmassen.
+
+**Bikini-Strand**
+Feridhoo hat einen der schönsten Strände der Region: puderweicher Sand, sanfter Einstieg und ganzjährig ruhiges Wasser, geschützt durch das Riff. Natürlicher Schatten ist begrenzt, aber die Insel hat viele andere fotogene Palmenstrände für Spaziergänge.
+
+**Ausflüge**
+Man kann sowohl die Highlights von Nord- als auch von Süd-Ari erreichen (Walhaie, Mantas). Ein besonderer Bonus ist das lebendige Hausriff, das man direkt vom Strand aus erschwimmen kann – kein Boot nötig.
+
+**Restaurants & Inselatmosphäre**
+Die Insel ist noch ursprünglich, Gästehäuser und Restaurants sind einfach und authentisch. Perfekt für ein echtes „Escape“-Gefühl im Dschungel. Die meisten Gäste essen in ihren familiengeführten Unterkünften.
+
+**Fazit**
+Ideal für Natur- und Ruhesuchende, die den Malediven-Urlaub abseits des Trubels genießen wollen.`,
     imageUrl: 'https://cdn.shopify.com/s/files/1/0942/5666/0784/files/Feridhoo.webp?v=1763838453',
     videoUrl: 'https://youtu.be/b6HW6sKqMl4',
     dimensions: 'Approx 1.3km long',
@@ -686,8 +782,32 @@ Wenn Sie ein Resort-Feeling mit Dschungel-Landschaft und traumhaften Stränden s
     id: 'dhigurah',
     name: 'Dhigurah',
     atoll: Atoll.SouthAri,
-    description: `Nicknamed the “Long Island,” Dhigurah takes about 2 hours by speedboat from Malé, though it can take longer in rough weather. It’s also reachable by domestic flight to Maamigili Island, followed by a short speedboat ride. Public ferry access requires a transfer. The island is long, lush, and peaceful, with a quiet village and a reputation for being one of the top year-round whale shark spots in the Maldives. A seasonal sandbank connects to the island’s southern tip, perfect for sunset walks. Guesthouses tend to be on the higher end ($100+/night) but offer direct access to some of the best marine life tours in the country.`,
-    descriptionDe: `Genannt „Long Island“, erreichbar in ca. 2 Std. per Schnellboot (länger bei rauem Wetter) oder per Inlandsflug nach Maamigili + Boot. Fähre erfordert Umstieg. Die Insel ist lang, üppig grün und friedlich, mit einem ruhigen Dorf. Einer der besten Orte für ganzjährige Walhai-Sichtungen. Eine saisonale Sandbank am Südzipfel lädt zu Sonnenuntergangsspaziergängen ein. Gehobenere Gästehäuser ($100+/Nacht), aber direkter Zugang zu Top-Meereserlebnissen.`,
+    description: `Located in South Ari Atoll, Dhigurah is about 2 hours by speedboat from Malé or reachable via a domestic flight to Maamigili, followed by a short speedboat ride. It’s a long, peaceful island with a quiet village, lush greenery, and no overdevelopment, offering a great balance between nature and comfort.
+
+**Bikini Beach**
+The Bikini Beach stretches far along the western side of the island and is one of the longest in the Maldives. It’s lined with natural greenery but has no loungers or shaded seating. Most visitors just lay out on towels. The shoreline varies: some sections are smooth and sandy, while others have a rocky ocean floor. During monsoon season, strong winds blow directly toward this beach, making the water rough and often unswimmable.
+
+**Excursions**
+Dhigurah is famous for year-round whale shark and manta sightings. These excursions are the main draw, but there’s a catch: guesthouses only allow their own guests on their tours. If your guesthouse cancels due to low signups, you won’t be able to join a different group. There is a house reef, but it’s not accessible from shore. You'll need to take a boat. The island’s sandbank is also a highlight. It connects to the southern tip during dry season and makes for beautiful sunset walks, but it disappears completely during monsoon due to high waves. It’s a long walk to get there, either through the jungle or along the shore, and while you can rent a buggy, there are no facilities, bring water and snacks.
+
+**Restaurants & Island Vibe**
+Dining options are limited but decent, with a few quality restaurants offering both local and international food. None are beachfront, though some places offer romantic setups on the sand by request. There’s also a small snack cart by the beach, but no casual sit-down dining right on the shoreline. The island has no nightlife, no live music, performances, or evening entertainment (we visited 4 times). The vibe is quiet and local, best suited for nature-focused travelers who don’t need much stimulation after dark.
+
+**Final Thoughts**
+Dhigurah is ideal for those chasing whale sharks, mantas, and long, scenic walks. It’s not built for social nightlife, but for marine life and nature, it’s one of the best picks in the country. Just be prepared for seasonal limitations and tour booking restrictions.`,
+    descriptionDe: `Dhigurah liegt im Süd-Ari-Atoll und ist bekannt als „Long Island“. Eine üppig grüne, lange Insel, die eine perfekte Balance zwischen Natur und Komfort bietet.
+
+**Bikini-Strand**
+Einer der längsten Strände der Malediven, gesäumt von Natur. Es gibt keine Liegen, man liegt direkt im Sand. Während der Monsunzeit kann das Wasser hier sehr rau sein.
+
+**Ausflüge**
+Berühmt für ganzjährige Walhai- und Manta-Begegnungen. Wichtig: Touren werden meist nur für eigene Gäste des jeweiligen Gästehauses angeboten. Die Sandbank am Südende ist ein Highlight für Sonnenuntergänge.
+
+**Restaurants & Inselatmosphäre**
+Die Auswahl ist begrenzt, aber gut. Es gibt keine direkten Strandrestaurants und kein Nachtleben oder Abendunterhaltung. Die Atmosphäre ist sehr ruhig und naturverbunden.
+
+**Fazit**
+Ideal für Meeresliebhaber und Ruhesuchende. Einer der besten Orte für Walhaie weltweit.`,
     imageUrl: 'https://cdn.shopify.com/s/files/1/0942/5666/0784/files/Dhigurah.webp?v=1763807762',
     videoUrl: 'https://youtu.be/b_-fU8CPVks',
     travelGuideUrl: 'https://maldivesonabudget.net/products/dhigurah-maldives-travel-guide',

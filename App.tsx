@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useEffect } from 'react';
 import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
@@ -24,9 +25,11 @@ const INITIAL_FILTERS: FilterState = {
 
 function App() {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
-  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(true);
+  const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(false);
   const [lang, setLang] = useState<Language>('en');
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
+  const [cols, setCols] = useState(1);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -36,9 +39,29 @@ function App() {
     }
   }, [isDarkMode]);
 
+  // Track the number of columns in the grid based on screen width
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 1280) setCols(3); // xl
+      else if (window.innerWidth >= 768) setCols(2); // md
+      else setCols(1); // default
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Reset expansion when filtering or changing layout to avoid confusion
+  useEffect(() => {
+    setExpandedRows(new Set());
+  }, [filters, cols]);
+
   const text = UI_TEXT[lang];
 
-  const resetFilters = () => setFilters(INITIAL_FILTERS);
+  const resetFilters = () => {
+    setFilters(INITIAL_FILTERS);
+    setExpandedRows(new Set());
+  };
 
   const updateFilter = (key: keyof FilterState, value: any) => {
     setFilters(prev => ({ ...prev, [key]: value }));
@@ -50,6 +73,15 @@ function App() {
 
   const toggleDarkMode = () => {
     setIsDarkMode(prev => !prev);
+  };
+
+  const toggleRowExpansion = (rowIndex: number) => {
+    setExpandedRows(prev => {
+      const next = new Set(prev);
+      if (next.has(rowIndex)) next.delete(rowIndex);
+      else next.add(rowIndex);
+      return next;
+    });
   };
 
   const matchesFilterGroup = (islandValues: any | any[], selectedValues: any[]) => {
@@ -191,7 +223,7 @@ function App() {
           </div>
         </a>
 
-        {/* Mobile Filter Section - Now Non-Sticky and scrolling with page */}
+        {/* Mobile Filter Section */}
         <div className="lg:hidden mb-6">
           <div className={`w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}>
              <div 
@@ -261,9 +293,18 @@ function App() {
 
             {filteredIslands.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredIslands.map(island => (
-                  <IslandCard key={island.id} island={island} lang={lang} />
-                ))}
+                {filteredIslands.map((island, index) => {
+                  const rowIndex = Math.floor(index / cols);
+                  return (
+                    <IslandCard 
+                      key={island.id} 
+                      island={island} 
+                      lang={lang} 
+                      isExpanded={expandedRows.has(rowIndex)}
+                      onToggle={() => toggleRowExpansion(rowIndex)}
+                    />
+                  );
+                })}
               </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-gray-800 rounded-xl border border-dashed border-gray-300 dark:border-gray-700 transition-colors">

@@ -3,7 +3,7 @@ import { ISLANDS } from './constants';
 import { Island, FilterState, Atoll, TransferType, FerryAccess, IslandSize, Atmosphere, Accommodation, MarineActivity } from './types';
 import { IslandCard } from './components/IslandCard';
 import { FilterSidebar } from './components/FilterSidebar';
-import { MapPin, Filter, ChevronDown, ChevronUp, X, Globe, Moon, Sun, RotateCcw, BookOpen } from 'lucide-react';
+import { MapPin, Filter, ChevronDown, ChevronUp, Globe, Moon, Sun, RotateCcw, BookOpen } from 'lucide-react';
 import { Language, UI_TEXT } from './translations';
 
 const INITIAL_FILTERS: FilterState = {
@@ -24,14 +24,10 @@ const INITIAL_FILTERS: FilterState = {
 
 function App() {
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
-  // Default to open for mobile filters as requested
   const [isMobileFiltersOpen, setIsMobileFiltersOpen] = useState(true);
   const [lang, setLang] = useState<Language>('en');
-  
-  // Dark mode state - Default to false (Light Mode) as requested
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  // Apply dark mode class to html element
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add('dark');
@@ -56,7 +52,6 @@ function App() {
     setIsDarkMode(prev => !prev);
   };
 
-  // --- Filtering Logic ---
   const matchesFilterGroup = (islandValues: any | any[], selectedValues: any[]) => {
     if (selectedValues.length === 0) return true;
     if (Array.isArray(islandValues)) {
@@ -80,7 +75,6 @@ function App() {
       if (!matchesFilterGroup(island.accommodations, currentFilters.accommodations)) return false;
       if (currentFilters.hasSandbankAttached && !island.hasSandbankAttached) return false;
       if (currentFilters.hasFloatingBar && !island.hasFloatingBar) return false;
-
       return true;
     });
   };
@@ -89,15 +83,11 @@ function App() {
     return filterIslands(ISLANDS, filters);
   }, [filters]);
 
-
-  // --- Faceted Counts Logic ---
   const availableCounts = useMemo(() => {
     const counts: Record<string, Record<string, number>> = {};
-
     const getCountsForCategory = (key: keyof FilterState, extractValue: (i: Island) => string | string[]) => {
       const tempFilters = { ...filters, [key]: Array.isArray(filters[key]) ? [] : null };
       const potentialIslands = filterIslands(ISLANDS, tempFilters);
-      
       const catCounts: Record<string, number> = {};
       potentialIslands.forEach(island => {
         const val = extractValue(island);
@@ -122,17 +112,11 @@ function App() {
     counts['jungle'] = getCountsForCategory('jungle', i => i.jungle);
     counts['nightlife'] = getCountsForCategory('nightlife', i => i.nightlife);
 
-    const baseForFeatures = filterIslands(ISLANDS, { 
-      ...filters, 
-      hasSandbankAttached: null, 
-      hasFloatingBar: null 
-    });
-    
+    const baseForFeatures = filterIslands(ISLANDS, { ...filters, hasSandbankAttached: null, hasFloatingBar: null });
     counts['features'] = {
       'Sandbank': baseForFeatures.filter(i => i.hasSandbankAttached).length,
       'FloatingBar': baseForFeatures.filter(i => i.hasFloatingBar).length
     };
-
     return counts;
   }, [filters]);
 
@@ -142,12 +126,10 @@ function App() {
     return acc;
   }, 0);
 
-  // Result Count Text Rendering Helper
   const renderResultText = () => {
     const activeIslandsCount = activeFiltersCount === 0 ? ISLANDS.length : filteredIslands.length;
     const template = activeFiltersCount === 0 ? text.chooseFrom : text.showingResults;
     const parts = template.split('{count}');
-    
     return (
       <>
         {parts[0]}
@@ -167,9 +149,7 @@ function App() {
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 dark:text-white mb-2 transition-colors">
               {text.exploreTitle}
             </h1>
-            {/* Removed the result count from here */}
           </div>
-          
           <div className="flex gap-3">
             <button 
               onClick={toggleDarkMode}
@@ -188,7 +168,7 @@ function App() {
           </div>
         </div>
 
-        {/* Promo Banner Button - Updated Design (Light Card) */}
+        {/* Promo Banner */}
         <a 
           href="https://maldivesonabudget.net/products/maldives-budget-travel-guide" 
           target="_blank" 
@@ -211,16 +191,13 @@ function App() {
           </div>
         </a>
 
-        {/* Mobile/Tablet Filter Toggle - Collapsible */}
-        <div className="lg:hidden mb-6 sticky top-4 z-20">
+        {/* Mobile Filter Section - Now Non-Sticky and scrolling with page */}
+        <div className="lg:hidden mb-6">
           <div className={`w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl shadow-md transition-all ${isMobileFiltersOpen ? 'ring-2 ring-teal-500 border-transparent' : ''}`}>
-             
-             {/* Header Bar - Grid Layout to center the Reset Button */}
              <div 
                className="grid grid-cols-[1fr_auto_1fr] items-center px-5 py-4 cursor-pointer gap-2" 
                onClick={() => setIsMobileFiltersOpen(!isMobileFiltersOpen)}
              >
-                {/* Left: Filter Title */}
                 <div className="flex items-center gap-2 text-gray-900 dark:text-white font-bold font-serif text-lg justify-self-start">
                   <Filter size={20} className="text-teal-600 dark:text-teal-400 shrink-0" />
                   <span>{text.filters}</span>
@@ -230,8 +207,6 @@ function App() {
                     </span>
                   )}
                 </div>
-
-                {/* Center: Reset Button (Bigger and Centered) */}
                 <div className="justify-self-center w-full flex justify-center">
                    <button
                      onClick={(e) => {
@@ -244,28 +219,19 @@ function App() {
                      <span>{text.resetShort}</span>
                    </button>
                 </div>
-                   
-                {/* Right: Chevron */}
                 <div className="text-gray-500 dark:text-gray-400 justify-self-end">
                    {isMobileFiltersOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
                 </div>
              </div>
-
-            {/* Collapsible Content */}
-            <div className={`overflow-hidden transition-all duration-300 ease-in-out flex flex-col ${isMobileFiltersOpen ? 'max-h-[70dvh] opacity-100' : 'max-h-0 opacity-0'}`}>
-               {/* 
-                  Fix mobile scrolling:
-                  1. max-h-[70dvh] prevents it from going off-screen on small devices.
-                  2. pb-32 adds huge padding at bottom so the last item (Features) isn't cut off by browser bars.
-               */}
-               <div className="flex-1 overflow-y-auto custom-scrollbar overscroll-contain p-6 pb-32 border-t border-gray-100 dark:border-gray-700">
+            <div className={`overflow-hidden transition-all duration-300 ease-in-out ${isMobileFiltersOpen ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'}`}>
+               <div className="p-6 border-t border-gray-100 dark:border-gray-700">
                   <FilterSidebar 
                     filters={filters} 
                     onFilterChange={updateFilter} 
                     availableCounts={availableCounts}
                     onReset={resetFilters}
                     lang={lang}
-                    hideHeader={true} // Hide redundant "Filters" header inside mobile view
+                    hideHeader={true}
                   />
                </div>
             </div>
@@ -273,15 +239,7 @@ function App() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8 relative">
-          
-          {/* Desktop Sidebar */}
           <aside className="hidden lg:block w-1/4 flex-shrink-0">
-             {/* 
-                Fix desktop scrolling:
-                1. sticky top-8 (32px)
-                2. max-h-[calc(100vh-6rem)] (approx 100vh - 96px). 
-                   This leaves ~64px gap at bottom, ensuring scrollbar and content are always visible.
-             */}
              <div className="sticky top-8 bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm max-h-[calc(100vh-6rem)] overflow-y-auto custom-scrollbar transition-colors">
                <FilterSidebar 
                  filters={filters} 
@@ -293,10 +251,8 @@ function App() {
              </div>
           </aside>
 
-          {/* Grid */}
           <main className="w-full lg:w-3/4">
-            
-            {/* NEW: Results Count Box */}
+            {/* Results Count Box */}
             <div className="mb-6 py-3 px-2 md:p-5 border border-gray-200 dark:border-gray-700 rounded-xl bg-white dark:bg-gray-800 text-center shadow-sm transition-colors overflow-hidden">
                <h2 className="text-sm md:text-2xl font-serif font-light md:font-normal text-gray-800 dark:text-white whitespace-nowrap overflow-hidden text-ellipsis">
                   {renderResultText()}
@@ -323,7 +279,6 @@ function App() {
               </div>
             )}
           </main>
-
         </div>
       </div>
     </div>

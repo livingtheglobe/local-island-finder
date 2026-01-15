@@ -1074,7 +1074,7 @@ Dharavandhoo ist einer der einfachsten Wege, die Hanifaru-Bucht zu erleben, ohne
     nightlife: Nightlife.Minimal,
     hasSandbankAttached: false,
     isSandbankSeasonal: false,
-    hasFloatingBar: true
+    hasFloatingBar: false
   },
   {
     id: 'dhonfanu',
@@ -1099,7 +1099,7 @@ Dharavandhoo ist einer der einfachsten Wege, die Hanifaru-Bucht zu erleben, ohne
     nightlife: Nightlife.Minimal,
     hasSandbankAttached: false,
     isSandbankSeasonal: false,
-    hasFloatingBar: true
+    hasFloatingBar: false
   },
   {
     id: 'kendhoo',

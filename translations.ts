@@ -14,7 +14,7 @@ export const UI_TEXT = {
     getSpecificGuide: "Get {island} Guide",
     watchTour: "WATCH WALKING TOUR",
     promoTitle: "Complete Maldives Budget Travel Guide",
-    promoDesc: "Your starting point for planning any Maldives local island, plus exclusive hotel discounts.",
+    promoDesc: "Your starting point for planning any Maldives local island.",
     promoButton: "Learn More",
     exploreTitle: "Maldives Local Island Finder",
     showingResults: "Found {count} islands based on your preferences",

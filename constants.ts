@@ -1308,7 +1308,7 @@ Kamadhoo ist ideal, wenn Sie eine friedliche Insel mit echter Persönlichkeit, t
 The beach is located away from the village, so you’ll enjoy a calming walk through a jungle path just to reach it. The bikini beach is simple but peaceful, with soft sand during the dry season and more waves during monsoon. Shade is no issue, thanks to plenty of palm trees. If you’re visiting in the dry season, there’s also a connected sandbank that you can walk to at low tide. It’s definitely a highlight and a perfect spot for quiet afternoons.
 
 **Excursions:**
-Fehendhoo is home to the only official freediving center in the Maldives, run by a national champion. This makes it a great pick if freediving is on your list. Guesthouses can also arrange typical excursions like sandbank visits, snorkeling trips, and dolphin cruises, but the vibe here is really about slowing down and soaking in nature, not chasing a packed excursion schedule. There is a seasonal manta point near by May though November. Hanifaru bay is only 40 min away where you can also take tours to see even more mantas (if you are lucky even a few hundred at a time), and seasonal Whalesharks (August-September). 
+Fehendhoo is home to the only official freediving center in the Maldives, run by a national champion. This makes it a great pick if freediving is on your list. Guesthouses can also arrange typical excursions like sandbank visits, snorkeling trips, and dolphin cruises, but the vibe here is really about slowing down and soaking in nature, not chasing a packed excursion schedule. There is a manta point  but they are not there all the time. It all depends on currents & plancton. For even more marine action, it’s only 40 minutes from Hanifaru Bay, where you can swim with mantas and (if you’re lucky) even spot whale sharks in May and October. Other excursions include snorkeling, sandbanks, but this island is really about beach time.
 
 **Restaurants & Island Vibe:**
 There aren’t standalone restaurants on the island, so most guests choose meal plans through their guesthouses. One standout is Isla Retreat Boutique Hotel, which serves high-quality meals and feels like a full-on resort while staying in the affordable luxury range. The rest of the guesthouses are smaller and simpler, but all share the same peaceful, unplugged vibe.
@@ -1321,7 +1321,7 @@ If you’re looking for something quiet, slow, and surrounded by nature, Fehendh
 Der Strand liegt abseits des Dorfes, sodass Sie einen beruhigenden Spaziergang durch einen Dschungelpfad genießen können, nur um ihn zu erreichen. Der Bikini-Strand ist einfach, aber friedlich, mit weichem Sand in der Trockenzeit und mehr Wellen während des Monsuns. Schatten ist dank zahlreicher Palmen kein Problem. Wenn Sie in der Trockenzeit zu Besuch sind, gibt es auch eine angeschlossene Sandbank, zu der man bei Ebbe laufen kann. Sie ist definitiv ein Highlight und ein perfekter Ort für ruhige Nachmittage.
 
 **Ausflüge:**
-Fehendhoo beherbergt das einzige offizielle Freitauchzentrum auf den Malediven, das von einem nationalen Champion geleitet wird. Das macht die Insel zu einer großartigen Wahl, wenn Freitauchen auf Ihrer Liste steht. Gästehäuser können auch typische Ausflüge wie Sandbank-Besuche, Schnorcheltrips und Delfin-Touren arrangieren, aber der Vibe hier ist wirklich darauf ausgelegt, das Tempo zu drosseln und die Natur zu genießen, nicht einem vollgepackten Ausflugsplan hinterherzujagen. Es gibt einen saisonalen Manta-Punkt in der Nähe von Mai bis November. Die Hanifaru-Bucht ist nur 40 Minuten entfernt, wo Sie ebenfalls Touren unternehmen können, um noch mehr Mantas (mit Glück sogar Hunderte auf einmal) und saisonale Walhaie (August-September) zu sehen.
+Fehendhoo beherbergt das einzige offizielle Freitauchzentrum auf den Malediven, das von einem nationalen Champion geleitet wird. Das macht die Insel zu einer großartigen Wahl, wenn Freitauchen auf Ihrer Liste steht. Gästehäuser können auch typische Ausflüge wie Sandbank-Besuche, Schnorcheltrips und Delfin-Touren arrangieren, aber der Vibe hier ist wirklich darauf ausgelegt, das Tempo zu drosseln und die Natur zu genießen, nicht einem vollgepackten Ausflugsplan hinterherzujagen. Fehendhoo hat zwar einen eigenen Mantarochen-Spot, aber die Mantarochen sind nicht immer da. Das hängt von Strömungen und Plankton ab. Wer noch mehr Meeresabenteuer erleben möchte, ist nur 40 Minuten von der Hanifaru-Bucht entfernt. Dort kann man mit Mantarochen schwimmen und (mit etwas Glück) im Mai und Oktober sogar Walhaie beobachten. Weitere Ausflugsmöglichkeiten sind Schnorcheln und Sandbänke, aber auf dieser Insel dreht sich alles um entspannte Strandtage.
 
 **Restaurants & Inselatmosphäre:**
 Es gibt keine eigenständigen Restaurants auf der Insel, daher wählen die meisten Gäste Verpflegungspakete über ihre Gästehäuser. Ein Highlight ist das Isla Retreat Boutique Hotel, das hochwertige Mahlzeiten serviert und sich wie ein richtiges Resort anfühlt, während es im bezahlbaren Luxusbereich bleibt. Die übrigen Gästehäuser sind kleiner und einfacher, teilen aber alle dieselbe friedliche Atmosphäre zum Abschalten.
@@ -1339,7 +1339,7 @@ Wenn Sie etwas Ruhiges, Langsames und von Natur Umgebenes suchen, ist Fehendhoo 
     accommodations: [Accommodation.AffordableLuxury],
     bikiniBeach: BikiniBeach.Medium,
     watersports: Watersports.Minimal,
-    marineActivities: [MarineActivity.MantaRays, MarineActivity.WhaleSharks, MarineActivity.Dolphins, MarineActivity.SandbankTours],
+    marineActivities: [MarineActivity.MantaRays, MarineActivity.WhaleSharks, MarineActivity.Dolphins, MarineActivity.SandbankTours, MarineActivity.NurseSharks],
     seasonalActivities: [MarineActivity.MantaRays, MarineActivity.WhaleSharks],
     jungle: JungleVegetation.Large,
     nightlife: Nightlife.Minimal,
@@ -1357,7 +1357,7 @@ Wenn Sie etwas Ruhiges, Langsames und von Natur Umgebenes suchen, ist Fehendhoo 
 The beach here is stunning. Powdery soft sand, turquoise water, and a natural sandbank that stretches right off the island, it’s postcard material. During the dry season, the sandbank gets even bigger. During the monsoon, the beach shrinks a bit, but it’s still gorgeous. Shade is limited, though. There’s one small tree line where everyone tends to gather, but the council has added a few shaded huts to help. The beach is about 30 minutes from the village by foot, so if you’re not in the mood to walk, you can rent a bike or catch a buggy. Just keep in mind there’s nothing out there, so bring water and snacks.
 
 **Excursions:**
-Fulhadhoo has its own local Manta Point, with the best chances to see mantas from May through November. For even more marine action, it’s only 40 minutes from Hanifaru Bay, where you can swim with mantas and, if you’re lucky, even spot whale sharks in August and September. Other excursions include snorkeling, sandbanks, but this island is really about beach time.
+Fulhadhoo has its own local Manta Point, but they are not there all the time. It all depends on currents & plancton. For even more marine action, it’s only 40 minutes from Hanifaru Bay, where you can swim with mantas and (if you’re lucky) even spot whale sharks in May and October. Other excursions include snorkeling, sandbanks, but this island is really about beach time.
 
 **Restaurants & Island Vibe:**
 The island is super quiet and never feels crowded. You’ll find a range of guesthouses from basic to boutique-style affordable luxury. There are a few good restaurants, but many guests choose a meal plan through their accommodation. Every now and then, guesthouses organize traditional drumming (boduberu) or beach parties when they’re fully booked, but otherwise, things stay low-key.
@@ -1370,7 +1370,7 @@ Fulhadhoo is perfect if you want soft sand, unreal water, and total tranquility.
 Der Strand hier ist atemberaubend. Puderweicher Sand, türkisfarbenes Wasser und eine natürliche Sandbank, die sich direkt von der Insel aus erstreckt – das ist Postkartenmotiv pur. In der Trockenzeit wird die Sandbank noch größer. Während des Monsuns schrumpft der Strand ein wenig, ist aber immer noch herrlich. Schatten ist jedoch begrenzt. Es gibt eine kleine Baumreihe, wo sich alle sammeln, aber die Gemeinde hat ein paar schattige Hütten hinzugefügt. Der Strand liegt etwa 30 Gehminuten vom Dorf entfernt. Wenn Sie also keine Lust zum Laufen haben, können Sie ein Fahrrad mieten oder einen Buggy nehmen. Denken Sie nur daran, dass es dort draußen nichts gibt, bringen Sie also Wasser und Snacks mit.
 
 **Ausflüge:**
-Fulhadhoo hat seinen eigenen lokalen Manta-Punkt mit den besten Chancen, Mantas von Mai bis November zu sehen. Für noch mehr Meeres-Action ist man in nur 40 Minuten in der Hanifaru-Bucht, wo man mit Mantas schwimmen und mit Glück sogar Walhaie im August und September entdecken kann. Andere Ausflüge umfassen Schnorcheln und Sandbänke, aber auf dieser Insel geht es wirklich um die Zeit am Strand.
+Fulhadhoo hat zwar einen eigenen Mantarochen-Spot, aber die Mantarochen sind nicht immer da. Das hängt von Strömungen und Plankton ab. Wer noch mehr Meeresabenteuer erleben möchte, ist nur 40 Minuten von der Hanifaru-Bucht entfernt. Dort kann man mit Mantarochen schwimmen und (mit etwas Glück) im Mai und Oktober sogar Walhaie beobachten. Weitere Ausflugsmöglichkeiten sind Schnorcheln und Sandbänke, aber auf dieser Insel dreht sich alles um entspannte Strandtage.
 
 **Restaurants & Inselatmosphäre:**
 Die Insel ist extrem ruhig und fühlt sich nie überfüllt an. Sie finden eine Auswahl an Gästehäusern von einfach bis hin zum erschwinglichen Luxus im Boutique-Stil. Es gibt ein paar gute Restaurants, aber viele Gäste wählen einen Verpflegungsplan über ihre Unterkunft. Hin und wieder organisieren Gästehäuser traditionelles Trommeln (Boduberu) oder Strandpartys, wenn sie voll belegt sind, aber ansonsten geht es eher entspannt zu.
@@ -1388,7 +1388,7 @@ Fulhadhoo ist perfekt bei weichem Sand, unglaublichem Wasser und totaler Ruhe. E
     accommodations: [Accommodation.AffordableLuxury, Accommodation.Pool],
     bikiniBeach: BikiniBeach.Large,
     watersports: Watersports.Minimal,
-    marineActivities: [MarineActivity.MantaRays, MarineActivity.WhaleSharks, MarineActivity.Dolphins, MarineActivity.HouseReef],
+    marineActivities: [MarineActivity.MantaRays, MarineActivity.WhaleSharks, MarineActivity.Dolphins, MarineActivity.HouseReef, MarineActivity.NurseSharks],
     seasonalActivities: [MarineActivity.MantaRays, MarineActivity.WhaleSharks],
     jungle: JungleVegetation.Large,
     nightlife: Nightlife.Minimal,

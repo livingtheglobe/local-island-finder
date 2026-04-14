@@ -65,7 +65,7 @@ export const UI_TEXT = {
     getSpecificGuide: "{island} Guide holen",
     watchTour: "RUNDGANG ANSEHEN",
     promoTitle: "Kompletter Malediven Budget-Reiseführer",
-    promoDesc: "Ihr Ausgangspunkt für die Planung Ihres Urlaubs auf einer der Malediven-Inseln, inklusive exklusiver Hotelrabatte.",
+    promoDesc: "Ihr Ausgangspunkt für die Planung Ihres Urlaubs auf einer der Malediven-Inseln.",
     promoButton: "Mehr erfahren",
     exploreTitle: "Malediven Insel-Finder",
     showingResults: "{count} Inseln basierend auf Ihren Vorlieben gefunden",
